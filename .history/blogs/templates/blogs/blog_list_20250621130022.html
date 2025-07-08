@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 style='background:red !important; width:100%;'>Latest Posts</h2>
+    <div class='w-100 headersec-2 d-flex flex-column justify-content-center align-items-center'>
+    <h1 class="fw-bolder fs-1 main-heading text-dark">TGI USA Visa</h1>
+        <p>Home >> Visa</p>
+    </div>
+    {% for post in posts %}
+        <article>
+            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            <p>By {{ post.author }} on {{ post.created_at|date:"F d, Y" }}</p>
+            <p>{{ post.content|truncatewords:30 | safe}}</p>
+        </article>
+    {% endfor %}
+{% endblock %}

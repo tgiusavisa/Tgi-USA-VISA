@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container p-5 text-center">
+    <h1 class='fw-bolder fs-1 main-heading w-100 text-center'>Fill in your details</h1>
+    <p class="text-break w-100 text-center">Please Enter Your Details of USA VISA Website Login Credentials</p>
+        <div class='container d-flex flex-row justify-content-between'>
+            <div class="input-group w-50 p-1 ms-1 me-1">
+                <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                  <img src="/static/images/icons/email.svg" alt="Email Address" class='rounded'/>
+                </span>
+                <input type="email" name='email' class="form-control form-sec-01 form-sec-02 fs-5" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" placeholder="Email Address">
+            </div>
+            <div class="input-group w-50 p-1 ms-1 me-1">
+                <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                    <img src="/static/images/icons/password.svg" alt="Password" class='rounded'/>
+                </span>
+                <input type="password" name='password' id="passwordField" class="form-control form-sec-01 form-sec-02 fs-5" style="border-radius: 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" placeholder="Your Password">
+                <span class="input-group-text" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important; cursor: pointer;" id="togglePassword">
+                    <i class="bi bi-eye-slash" id="toggleIcon"></i>
+                </span>
+            </div>
+        </div>   
+        <div class="mt-4">
+        <h5 class="fw-bold mb-3">Security Questions</h5>
+        <div class='container row'>
+            {% for i in "12" %}
+            <div class="mb-4 question-group" data-question="{{ forloop.counter }}">
+                <div class="input-group mb-2">
+                    <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        Q{{ forloop.counter }}
+                    </span>
+                    <input type="text" name='question_{{ forloop.counter }}' class="form-control form-sec-01 form-sec-02 fs-5" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" placeholder="Question {{ forloop.counter }}">
+                </div>
+            
+                <div class="input-group">
+                    <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        A{{ forloop.counter }}
+                    </span>
+                    <input type="text" name='answer_{{ forloop.counter }}' class="form-control form-sec-01 form-sec-02 fs-5" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" placeholder="Answer {{ forloop.counter }}">
+                </div>
+            </div>
+            {% endfor %}
+        
+            {% for i in "345" %}
+            <div class="mb-4 question-group" data-question="{{ forloop.counter|add:2 }}" style="display: none;">
+                <div class="input-group mb-2">
+                    <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        Q{{ forloop.counter|add:2 }}
+                    </span>
+                    <input type="text" name='question_{{ forloop.counter|add:2 }}' class="form-control form-sec-01 form-sec-02 fs-5" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" placeholder="Question {{ forloop.counter|add:2 }}">
+                </div>
+            
+                <div class="input-group">
+                    <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        A{{ forloop.counter|add:2 }}
+                    </span>
+                    <input type="text" name='answer_{{ forloop.counter|add:2 }}' class="form-control form-sec-01 form-sec-02 fs-5" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" placeholder="Answer {{ forloop.counter|add:2 }}">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class='container row'>
+            <div class="col text-center mt-3">
+                <button type="button" id="addQuestionBtn" class="mt-3 w-100 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-1 pb-1  button2 text-dark border-2 fs-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+                    Add More Questions
+                </button>
+            </div>
+            <div class="col text-center mt-3">
+                <button type="button" id="addQuestionBtn" class="mt-3 w-100 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-1 pb-1  button2 text-dark border-2 fs-5">
+                    Submit
+                </button>
+            </div>
+        </div>
+</div>
+
+<!-- JavaScript for password toggle and question management -->
+<script>
+// Password toggle
+document.getElementById('togglePassword').addEventListener('click', function() {
+    const passwordField = document.getElementById('passwordField');
+    const toggleIcon = document.getElementById('toggleIcon');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.classList.remove('bi-eye-slash');
+        toggleIcon.classList.add('bi-eye');
+    } else {
+        passwordField.type = 'password';
+        toggleIcon.classList.remove('bi-eye');
+        toggleIcon.classList.add('bi-eye-slash');
+    }
+});
+
+// Question management
+let visibleQuestions = 2;
+const totalQuestions = 5;
+const addQuestionBtn = document.getElementById('addQuestionBtn');
+
+addQuestionBtn.addEventListener('click', function() {
+    if (visibleQuestions < totalQuestions) {
+        visibleQuestions++;
+        const nextQuestion = document.querySelector(`.question-group[data-question="${visibleQuestions}"]`);
+        if (nextQuestion) {
+            nextQuestion.style.display = 'block';
+        }
+        
+        // Hide button if all questions are visible
+        if (visibleQuestions === totalQuestions) {
+            addQuestionBtn.style.display = 'none';
+        }
+    }
+});
+
+// Hide button initially if only 2 questions are available
+if (totalQuestions <= 2) {
+    addQuestionBtn.style.display = 'none';
+}
+</script>
+</div>    
+{% endblock %}

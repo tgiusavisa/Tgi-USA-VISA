@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Received</title>
+</head>
+<body>
+    <h2>Thank You for Your Payment, {{ booking.full_name }}!</h2>
+    <p>We've received your payment proof for your USA visa application.</p>
+    
+    <h3>Booking Details:</h3>
+    <ul>
+        <li><strong>Name:</strong> {{ booking.full_name }}</li>
+        <li><strong>Passport ID:</strong> {{ booking.passport_id }}</li>
+        <li><strong>Email:</strong> {{ booking.email }}</li>
+        <li><strong>Submitted At:</strong> {{ payment.submitted_at }}</li>
+    </ul>
+    
+    <p>Our team will verify your payment and contact you shortly.</p>
+    
+    <p>Best regards,<br>TGI USA Visa Helpline Team</p>
+</body>
+</html>

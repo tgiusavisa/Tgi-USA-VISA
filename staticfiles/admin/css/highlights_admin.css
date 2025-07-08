@@ -1,0 +1,4 @@
+/* Hide the empty label that might appear */
+.field-mainheading[style="display: none;"] + label {
+    display: none !important;
+}

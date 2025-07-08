@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Payment Proof</title>
+</head>
+<body>
+    <h2>New Payment Proof Received</h2>
+    
+    <h3>Customer Details:</h3>
+    <ul>
+        <li><strong>Name:</strong> {{ booking.full_name }}</li>
+        <li><strong>Passport ID:</strong> {{ booking.passport_id }}</li>
+        <li><strong>Email:</strong> {{ booking.email }}</li>
+        <li><strong>Phone:</strong> {{ booking.mobile_number }}</li>
+    </ul>
+    
+    <h3>Payment Details:</h3>
+    <ul>
+        <li><strong>Submitted At:</strong> {{ payment.submitted_at }}</li>
+        <li><strong>Payment Proof:</strong> <a href="{{ payment.payment_proof.url }}">View Proof</a></li>
+    </ul>
+    
+    <p>Please verify this payment in the admin panel.</p>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .main-header{
+    background-color:black !important;
+  }
+</style>
+<div class='container text-center p-5'>
+  <h1 class='fw-bolder fs-1 main-heading w-100 text-center'>Fill in your details</h1>
+  <p class="text-break w-100 text-center">Pleae Enter Your Details and Book Your Visa Appointment within 5 Weeks</p>
+</div>
+<div class='container'>
+  <div class='row'>
+    <div class='col'>
+        <form method="POST" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
+          <div class="row">
+              <div class="col-md-6">
+                {{ form.full_name.label_tag }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text form-img form-sec-01 pt-2 pb-2"
+                        style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        <img src="/static/images/icons/account.svg" alt="Full Name" />
+                    </span>
+                    {{ form.full_name }}
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                {{ form.mobile_number.label_tag }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text form-img form-sec-01 pt-2 pb-2"
+                        style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        <img src="/static/images/icons/call.svg" alt="Phone Number" />
+                    </span>
+                    {{ form.mobile_number }}
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                {{ form.email.label_tag }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text form-img form-sec-01 pt-2 pb-2"
+                        style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        <img src="/static/images/icons/email.svg" alt="Email ID" />
+                    </span>
+                    {{ form.email }}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mt-3">
+                    <span class="input-group-text form-img form-sec-01 pt-2 pb-2" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                      <img src="/static/images/icons/visa.svg" alt="Visa" class='rounded'/>
+                    </span>
+                    <select class="form-select form-control form-sec-01 fs-5 pt-2 pb-2" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" id="visa">
+                        <option value="" selected disabled id="defaultOption">Visa Type</option>
+                        <option value="B1B2-Visa">B1 B2 Visa</option>
+                        <option value="H1-H2">H1 H4/ L1 L2/ C1D / F1 F2 / J1 J2 </option>
+                    </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                {% comment %} {{ form.email.label_tag }} {% endcomment %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text form-img form-sec-01 pt-2 pb-2"
+                        style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        <img src="/static/images/icons/appointment.svg" alt="Application Location" class='rounded'/>
+                    </span>
+                    <select class="form-select form-control form-sec-01 fs-5 pt-2 pb-2" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" id="appointmentLocation">
+                      <option value="" selected disabled id="defaultOption">Appointment Location</option>
+                      <option value="pan-india">Pan india - Biometrics and Interview</option>
+                      <option value="mumbai">Mumbai - Biometrics and Interview</option>
+                    </select>
+                    {% comment %} {{ form.email }} {% endcomment %}
+                </div>
+              </div>
+              <div class="col-md-6">
+                {% comment %} {{ form.email.label_tag }} {% endcomment %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text form-img form-sec-01 pt-2 pb-2"
+                        style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
+                        <img src="/static/images/icons/group.svg" alt="Traveller" class='rounded'/>
+                    </span>
+                    <input type="text" class="form-control form-sec-01  pt-2 pb-2" style="border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important; border-right: none;" id="travellers" placeholder="Traveller" readonly>
+                  <span class="input-group-text form-img form-sec-01 pt-2 pb-2" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important">
+                      <button class="btn btn-sm p-0 minus-btn">
+                          <img src="/static/images/icons/minus.svg" alt="Minus" style='width:15px !important; object-fit:contain !important;'/>
+                      </button>
+                      <span class="mx-2 fw-bold fs-5 traveller-count">1</span>
+                      <button class="btn btn-sm p-0 plus-btn">
+                          <img src="/static/images/icons/plus.svg" alt="Add" style='width:15px !important; object-fit:contain !important;'/>
+                      </button>
+                  </span>
+                    {% comment %} {{ form.email }} {% endcomment %}
+                </div>
+              </div>
+              <div class='container d-flex justify-content-center align-item-center mt-3 mb-3'>
+                <div class='col-md-12'>
+                    <p class=' w-25 text-center fw-bolder fs-6 rounded-pill ps-2 pe-2 m-1 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Price<p>
+                    <ul class='m-0 p-0'>
+                        <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Pay Now</span><span id="payNowAmount">Rs. 9,999 x 1</span></li>
+                        <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Inteview Training</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                        <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Document Checklikst</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                        <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>DS160 Form Review & Suggestion</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                        <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>24/7 Assistance</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                        <div class='w-100 d-flex flex-row align-item-center justify-content-center mt-2 mb-2'><div class='line'></div></div>
+                        <li class='fs-6 fw-bold d-flex flex-row align-item-center justify-content-between'><span>Pay later</span><span id="payLaterAmount">Rs. 4,999 x 1</span></li>
+                        <li class='fs-6 fw-bold d-flex flex-row align-item-center justify-content-between'><span>Total Amount</span><span id="totalAmount">Rs. 9,999/-</span></li>
+                    </ul>
+                </div>
+              </div>   
+              <div class="w-100 text-center d-flex justify-content-center align-item-center">
+                  <button type="submit"class='mb-5 mt-3 w-50 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-2 pb-2 button2 text-dark border-2 fs-5'>Scheduled Appointment</button>
+              </div>         
+          </div>
+      </form>
+    </div>
+    <div class='col'>
+      <img src="/static/images/airport.gif" class="d-block w-100 rounded-5" alt="..." style>
+    </div>
+  </div>
+</div>
+{% comment %} <div class='container'>
+    
+</div> {% endcomment %}
+{% endblock %}

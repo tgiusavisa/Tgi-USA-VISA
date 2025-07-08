@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center p-5">
+    <h1 class="fw-bolder text-success">Payment Proof Submitted!</h1>
+    <p>We've received your payment confirmation.</p>
+    
+    <!-- WhatsApp Button -->
+    <a href="{{ whatsapp_url }}" 
+       class="btn btn-success mt-3" 
+       target="_blank">
+       <i class="bi bi-whatsapp"></i> Share on WhatsApp
+    </a>
+    
+    <a href="/" class="btn btn-primary mt-3">Return Home</a>
+</div>
+{% endblock %}

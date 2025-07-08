@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='w-100 headersec-2 d-flex flex-column justify-content-center align-items-center'>
+    {% for item in details.about_us.all %}
+    <h1 class="fw-bolder fs-1 main-heading text-dark">{{ item.heading }}</h1>
+    <p>TGI USA Visa >> {{ item.heading }}</p>
+    {% endfor %}
+</div>
+<div class='w-100 d-flex flex-column justify-content-center align-items-center'>
+    <div class="container">
+        <div class="d-flex flex-row justify-content-center align-items-start p-3">
+            {% for item in details.about_us.all %}
+            <div class="col p-4">
+                <div class='fw-bolder fs-1 main-heading'>{{ item.heading }}</div>
+            <div class='line mb-2 ms-2'></div>
+            <p class="text-break">{{ item.description|safe }}</p>
+            </div>
+            <div class="col p-4 about-img-sec">
+                <img src="{{ item.image.url }}" alt="{{ item.heading }}" class='w-100 object-fit-cover rounded-4'/>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center p-3">
+            <div class='line mb-2 ms-2'></div>
+        </div>
+        <div class=" w-100 d-flex flex-row justify-content-center align-items-center p-3">
+            <div class=' w-100 d-flex flex-row justify-content-around align-items-start'>
+                <div class="w-100 d-flex flex-column justify-content-center align-items-center">
+                   {% for item in details.our_mission.all %}
+                   <div class="col p-4 about-img-sec">
+                        <img src="{{ item.image.url }}" alt="{{ item.heading }}" class='w-100 object-fit-cover rounded-4'/>
+                    </div> 
+                   <div class="col p-4">
+                        <div class='fw-bolder fs-1 main-heading'>{{ item.heading }}</div>
+                    <div class='line mb-2 ms-2'></div>
+                    <p class="text-break">{{ item.description|safe }}</p>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+                <div class="w-100 d-flex flex-column justify-content-center align-items-center">
+                   {% for item in details.Our_vision.all %}
+                   <div class="col p-4 about-img-sec">
+                        <img src="{{ item.image.url }}" alt="{{ item.heading }}" class='w-100 object-fit-cover rounded-4'/>
+                    </div> 
+                   <div class="col p-4">
+                        <div class='fw-bolder fs-1 main-heading'>{{ item.heading }}</div>
+                    <div class='line mb-2 ms-2'></div>
+                    <p class="text-break">{{ item.description|safe }}</p>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center p-3">
+            <div class='line mb-2 ms-2'></div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-start p-3">
+             {% for item in details.our_goals.all %}
+            <div class="col p-4 about-img-sec">
+                <img src="{{ item.image.url }}" alt="{{ item.heading }}" class='w-100 object-fit-cover rounded-4'/>
+            </div>
+            <div class="col p-4">
+                <div class='fw-bolder fs-1 main-heading'>{{ item.heading }}</div>
+            <div class='line mb-2 ms-2'></div>
+            <p class="text-break">{{ item.description|safe }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

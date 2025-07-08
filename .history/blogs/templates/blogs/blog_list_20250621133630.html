@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class='w-100 headersec-2 d-flex flex-column justify-content-center align-items-center'>
+        <h1 class="fw-bolder fs-1 main-heading text-dark">TGI USA Visa Blogs</h1>
+        <p>Home >> Blogs</p>
+    </div>
+    <div class="container row bg-dark">
+    <div class="row bg-info">
+        {% for post in posts %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <article class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden {% if not post.is_published %}border-warning{% endif %}">
+                {% if post.featured_image %}
+                <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title h5">
+                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
+                            {{ post.title }}
+                            {% if not post.is_published %}
+                            <span class="badge bg-warning text-dark ms-2">Draft</span>
+                            {% endif %}
+                        </a>
+                    </h3>
+                    <p class="text-muted small mb-2">
+                        By {{ post.author }} on {{ post.created_at|date:"F d, Y" }}
+                    </p>
+                    <p class="card-text">
+                        {{ post.content|striptags|truncatewords:30 }}
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="{{ post.get_absolute_url }}" class="btn btn-sm btn-outline-primary">Read More</a>
+                </div>
+            </article>
+        </div>
+        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+        </div>
+        <div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

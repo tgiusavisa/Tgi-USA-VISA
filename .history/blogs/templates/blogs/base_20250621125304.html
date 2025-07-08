@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='w-100 headersec-2 d-flex flex-column justify-content-center align-items-center position-relative'>
+    <h1 class="fw-bolder fs-1 main-heading text-dark">TGI USA Visa</h1>
+    <p>Home >> Visa</p>
+    
+    <!-- Blog Button (positioned absolutely) -->
+    <a href="{% url 'blog_list' %}" class='position-absolute end-0 me-4 text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-white fw-bold pb-1 bg-primary px-3 py-1'>
+        Blogs
+        <svg viewBox="0 0 24 24" fill="currentColor" class='mt-1 ms-1' width="18" height="18">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+    </a>
+</div>
+{% endblock %}

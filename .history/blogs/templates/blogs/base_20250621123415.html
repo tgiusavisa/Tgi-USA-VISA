@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}TGI USA Visa Blog{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'blog_list' %}">TGI USA Visa Blog</a></h1>
+    </header>
+
+    <div class='w-100 headersec-2 d-flex flex-column justify-content-center align-items-center'>
+        <h1 class="fw-bolder fs-1 main-heading text-dark">TGI USA Visa</h1>
+        <p>Home >> Visa</p>
+    </div>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}TGI USA Visa Blog{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'blog_list' %}">TGI USA Visa Blog</a></h1>
+    </header>
+
+    <div class='main-homesection w-100' style="background-image: url('{{ visa.img.url }}'); background-size: cover; background-position: center;">
+    <div class='main-homesection w-100 overlay d-flex flex-row justify-content-evenly align-items-center' style="background-image: url('#'); background-color:rgba(0, 0, 0, 0.6);">
+        <div class='w-50 d-flex flex-column justify-content-center align-items-start p-5 rounded-5 visa-glass'>
+            <h1 class='fw-bolder fs-1 main-heading text-white'>{{ visa.heading1 }}</h1>
+            <p class='fs-5 mt-2 mb-2 text-white'>{{ visa.heading2 }}</p>
+            <a href="#" class="w-50 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-2 pb-2 mt-3 button2 text-dark border-2" data-bs-toggle="modal" data-bs-target="#bookVisaModal">
+                Book Your Visa
+            </a>
+        </div>
+        <div class='w-25 bg-transition'></div>
+    </div>
+    </div>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

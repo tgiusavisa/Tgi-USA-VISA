@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='w-100 headersec-2 d-flex flex-column justify-content-center align-items-center'>
+    <h1 class="fw-bolder fs-1 main-heading text-dark">Term & Policy</h1>
+    <p>Home >> Term & Policy</p>
+</div>
+<div class='container'>
+    {% for item in policies %}
+        <div class="column justify-content-center mt-5 mb-5">
+            <div class='fw-bolder fs-1 main-heading w-100 text-center mb-2'>{{ item.heading }}</div>
+            <p class="text-break">{{ item.description|safe }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

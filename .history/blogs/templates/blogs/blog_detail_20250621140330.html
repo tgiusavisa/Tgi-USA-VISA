@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <article>
+        <h2>{{ post.title }}</h2>
+        <p>By {{ post.author }} on {{ post.created_at|date:"F d, Y" }}</p>
+        {% if post.featured_image %}
+            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        <div>{{ post.content|safe }}</div>
+    </article>
+{% endblock %}
+
+{% comment %} {% extends 'blogs/base.html' %}
+{% block title %}{{ post.title }}{% endblock %} {% endcomment %}

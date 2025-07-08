@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container p-5 text-center">
+    <h1 class="fw-bolder fs-1 main-heading">Client 1 Secure Payment Gateway</h1>
+    <p class='w-100 text-center'>Complete your transaction with our trusted payment system</p>
+    <div class='container row justify-content-around'>
+        <div class='border shadow-sm col-md-6 rounded-4 h-auto' style='width:47%;'>
+            <div class='fw-bolder fs-2 main-heading'>Scan & Pay</div>
+            <p class='text-center'>Use any UPI app to scan the QR code below</p>
+            <img src="/static/images/scanner.jpg" alt="Payment Getways" class='w-50 border p-2 rounded-4 m-4'/>
+            <p class='text-center p-0 m-0'>UPI ID for manual payment</p>
+            <div class="copy-container">
+              <button class="copy-button rounded-4 mt-2 mb-2 p-2 ps-5 pe-5" onclick="copyToClipboard()" style='background-color: rgba(255, 221, 0, 0.29); border: 1.5px solid #FFDD00;'>
+                <span id="upi-id" class='fs-5'>tgiusavisa@01-1sbi.com</span>
+                <i class="bi bi-clipboard ms-2"></i> <!-- Bootstrap Icon -->
+              </button>
+            </div>
+            <p class='text-center'>This payment option refreshes every 15 minutes</p>
+        </div>
+        <div class='border shadow-sm col-md-6 rounded-4 pt-4 pb-4 ' style='width:47%;'>
+                <h1 class="w-100 text-center fw-bolder fs-2 main-heading">Payment Instructions</h1>
+                <div class='w-100 d-flex justify-content-around align-item-center'>
+                    <div class='line mb-2 ms-2'></div>
+                </div>
+                <div>
+                    <div class="list-group">
+                      <a href="#" class="list-group-item list-group-item-action rounded-4 mt-2 mb-2" style='background-color: rgba(255, 221, 0, 0.29); border: 1.5px solid #FFDD00;'>
+                        <div class="d-flex w-100 justify-content-between rounded-4">
+                          <h5 class="mb-1">- Scan the QR Code</h5>
+                          <small></small>
+                        </div>
+                        <p class="mb-1">Open any UPI-enabled payment app and scan the QR code shown</p>
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action rounded-4 mt-2 mb-2" style='background-color: rgba(255, 221, 0, 0.29); border: 1.5px solid #FFDD00;'>
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">- Enter Amount & Pay</h5>
+                        </div>
+                        <p class="mb-1">Enter the amount for your selected plan and complete the payment.</p>
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action rounded-4 mt-2 mb-2" style='background-color: rgba(255, 221, 0, 0.29); border: 1.5px solid #FFDD00;'>
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">- Take a Screenshot</h5>
+                        </div>
+                        <p class="mb-1">Capture the payment confirmation screen showing the UTR number and time</p>
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action rounded-4 mt-2 mb-2" style='background-color: rgba(255, 221, 0, 0.29); border: 1.5px solid #FFDD00;'>
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">- Share Payment Proof</h5>
+                        </div>
+                        <p class="mb-1">Add the screenshot on webiste with your With Full Name & Email ID</p>
+                      </a>
+                      <a href="#" class="list-group-item list-group-item-action rounded-4 mt-2 mb-2" style='background-color: rgba(255, 221, 0, 0.29); border: 1.5px solid #FFDD00;'>
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">- Verification & Activation</h5>
+                        </div>
+                        <p class="mb-1">Our team will verify and activate your plan within 15-20 minutes</p>
+                      </a>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class='container row justify-content-around mt-5'>
+        <div class='border shadow-sm rounded-4 pt-4 pb-4' style='width:98%;'>
+            <h1 class="w-100 text-center fw-bolder fs-2 main-heading">Confirm Your Payment</h1>
+            <div class='w-100 d-flex justify-content-around align-item-center'>
+                <div class='line mb-2 ms-2 w-25'></div>
+            </div>
+            <p class='w-100 text-center'>After completing the payment, upload the screenshot along with your Full Name & Email Id on website</p>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'submit_payment_proof' %}">
+                {% csrf_token %}
+                <div class="row p-4">
+                    <div class="col-md-4 text-start">
+                        <label class="form-label">Payment Screenshot</label>
+                        <input name="payment_proof" class="form-control" type="file" required>
+                    </div>
+                    <div class="col-md-4 text-start">
+                        <label class="form-label">Full Name</label>
+                        <input name="full_name" type="text" class="form-control" required>
+                    </div>
+                    <div class="col-md-4 text-start">
+                        <label class="form-label">Email</label>
+                        <input name="email" type="email" class="form-control" required>
+                    </div>
+                    <div class="w-100 text-center">
+                        <button type="submit" class="mb-5 mt-3 w-50 btn btn-warning rounded-pill fw-bold fs-5">
+                            Submit Payment Proof
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="copy-toast" class="toast-popup">UPI ID copied to clipboard!</div>
+{% endblock %}

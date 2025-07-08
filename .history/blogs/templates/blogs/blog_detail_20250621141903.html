@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class='w-100 headersec-2 d-flex flex-column justify-content-center align-items-center'>
+        <h1 class="fw-bolder fs-1 main-heading text-dark">{{ post.title }}</h1>
+        <p>Home >> Blogs >> {{ post.title }}</p>
+    </div>
+    <div class='container d-flex justify-content-center align-items-center bg-info'>
+        <article class='w-75 m-5'>
+            {% if post.featured_image %}
+                <div class='d-flex justify-content-center align-items-center w-100'>
+                    <img src="{{ post.featured_image.url }}" class='w-100 object-fit-cover rounded-4' alt="{{ post.title }}">
+                </div>
+            {% endif %}
+            <h2>{{ post.title }}</h2>
+            <p>By {{ post.author }} on {{ post.created_at|date:"F d, Y" }}</p>
+            <div>{{ post.content|safe }}</div>
+        </article>
+    </div>
+{% endblock %}
+
+{% comment %} {% extends 'blogs/base.html' %}
+{% block title %}{{ post.title }}{% endblock %} {% endcomment %}
