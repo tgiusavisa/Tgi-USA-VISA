@@ -18,7 +18,13 @@ TOGETHER_API_KEY = "e8239c292f5708e741f5a6fad37e4fba1bbb8eb82f1e8b3b12ef73de9e51
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'tgiusavisa.com',       # Domain (without https://)
+    'www.tgiusavisa.com',   # Optional: if you use www subdomain
+    '98.81.95.44',          # IP address (port not needed here)
+]
 
 
 # Application definition
