@@ -1,3 +1,265 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const visaSelect = document.getElementById('visa');
+    const servicesSelect = document.getElementById('services');
+    const locationSelect = document.getElementById('appointmentLocation');
+    
+    // Store all original options
+    const allServiceOptions = Array.from(servicesSelect.options);
+    const allLocationOptions = Array.from(locationSelect.options);
+    
+    // Function to filter services based on visa
+    function filterServicesByVisa(visa) {
+        servicesSelect.innerHTML = '';
+        allServiceOptions.forEach(option => servicesSelect.add(option.cloneNode(true)));
+        
+        Array.from(servicesSelect.options).forEach(option => {
+            if (option.value) option.style.display = 'none';
+        });
+
+        switch(visa) {
+            case 'B1B2-Visa':
+                showServiceOptions(['Only-Slot-Booking', 'Only-Normal-Process', 'Full-Process-Express-Dates']);
+                break;
+            case 'B1B2-Visa Dropbox':
+                showServiceOptions(['Full-Process-Dates']);
+                break;
+            case 'C1d-Visa':
+                showServiceOptions(['Full-Process-Express-Dates',]);
+                break;
+            case 'Immigration-Visa':
+                showServiceOptions(['Full-Process-Dates']);
+                break;
+            case 'H1b/H4-Visa':
+            case 'F1/F2-Visa':
+            case 'L1/L2-Visa':
+            case 'Blanket-L1-Visa':
+            case 'Blanket-L2-Visa-Drop-visa':
+                showServiceOptions(['Express-Dates']);
+                break;
+            default:
+                showServiceOptions(['Only-Slot-Booking', 'Only-Normal-Process', 'Express-Dates', 
+                                 'Full-Process-Dates', 'Full-Process-Express-Dates']);
+        }
+        servicesSelect.value = '';
+        locationSelect.value = '';
+    }
+    
+    // Function to filter locations based on visa and service
+    function filterLocations(visa, service) {
+        locationSelect.innerHTML = '';
+        allLocationOptions.forEach(option => locationSelect.add(option.cloneNode(true)));
+        
+        Array.from(locationSelect.options).forEach(option => {
+            if (option.value) option.style.display = 'none';
+        });
+
+        // B1B2 Visa rules
+        if (visa === 'B1B2-Visa') {
+            if (service === 'Only-Slot-Booking' || service === 'Full-Process-Express-Dates') {
+                showLocationOptions(['Pan-India', 'Mumbai-Both-Dates']);
+            } 
+            else if (service === 'Only-Normal-Process') {
+                showLocationOptions(['Mumbai-Delhi-Hydrabad-Chennai-Kolkata']);
+            }
+        } 
+        // B1B2 Visa Dropbox rules
+        else if (visa === 'B1B2-Visa Dropbox' && service === 'Full-Process-Dates') {
+            showLocationOptions(['Mumbai-Delhi-Hydrabad-Chennai-Kolkata']);
+        }
+        else if (visa === 'C1d-Visa' && service === 'Full-Process-Express-Dates') {
+            showLocationOptions(['Mumbai/Location-of-Your-Choice']);
+        }
+        // H1b/H4 Visa rules
+        else if (visa === 'H1b/H4-Visa' && service === 'Express-Dates') {
+            showLocationOptions(['Location-of-your-choice/Hydrabad-Chennai']);
+        }
+        // F1/F2 Visa rules
+        else if (visa === 'F1/F2-Visa' && service === 'Express-Dates') {
+            showLocationOptions(['Mumbai/Location-of-Your-Choice']);
+        }
+        // L1/L2 Visa rules
+        else if (visa === 'L1/L2-Visa' && service === 'Express-Dates') {
+            showLocationOptions(['Location-of-your-choice/Hydrabad-Chennai']);
+        }
+        // Blanket L1 Visa rules
+        else if (visa === 'Blanket-L1-Visa' && service === 'Express-Dates') {
+            showLocationOptions(['Chennai-Only']);
+        }
+        // Blanket L2 Visa rules
+        else if (visa === 'Blanket-L2-Visa-Drop-visa' && service === 'Express-Dates') {
+            showLocationOptions(['Location-of-your-choice/Hydrabad-Chennai']);
+        }
+        // Immigration Visa rules
+        else if (visa === 'Immigration-Visa' && service === 'Full-Process-Dates') {
+            showLocationOptions(['Mumbai-Both-Dates']);
+        }
+        
+        locationSelect.value = '';
+    }
+    
+    // Helper functions
+    function showServiceOptions(options) {
+        Array.from(servicesSelect.options).forEach(option => {
+            if (option.value && options.includes(option.value)) {
+                option.style.display = '';
+            }
+        });
+    }
+    
+    function showLocationOptions(options) {
+        Array.from(locationSelect.options).forEach(option => {
+            if (option.value && options.includes(option.value)) {
+                option.style.display = '';
+            }
+        });
+    }
+    
+    // Event listeners
+    visaSelect.addEventListener('change', function() {
+        filterServicesByVisa(this.value);
+    });
+    
+    servicesSelect.addEventListener('change', function() {
+        filterLocations(visaSelect.value, this.value);
+    });
+    
+    // Initialize
+    filterServicesByVisa(visaSelect.value);
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all required elements
+    const visaSelect = document.getElementById('visa');
+    const servicesSelect = document.getElementById('services');
+    const locationSelect = document.getElementById('appointmentLocation');
+    const payNowAmount = document.getElementById('payNowAmount');
+    const payLaterAmount = document.getElementById('payLaterAmount');
+    const processingFees = document.getElementById('ProcessingFees');
+    const ExpressDate = document.getElementById('ExpressDate');
+    const totalAmount = document.getElementById('totalAmount');
+    const travellerCount = document.querySelector('.traveller-count');
+
+    // Comprehensive price matrix
+    const PRICE_MATRIX = {
+        'B1B2-Visa': {
+            'Only-Slot-Booking': {
+                'Pan-India': { payNow: 7500, payLater: 7500, processing: 0 },
+                'Mumbai-Both-Dates': { payNow: 12500, payLater: 12500, processing: 0 }
+            },
+            'Only-Normal-Process': {
+                'Mumbai-Delhi-Hydrabad-Chennai-Kolkata': { payNow: 4500, payLater: 0, processing: 4500 }
+            },
+            'Full-Process-Express-Dates': {
+                'Pan-India': { payNow: 10000, payLater: 9500, processing: 4500, express: 15000},
+                'Mumbai-Both-Dates': { payNow: 17000, payLater: 12500, processing: 4500, express: 25000},
+            }
+        },
+        'B1B2-Visa Dropbox': {
+            'Full-Process-Dates': {
+                'Mumbai-Delhi-Hydrabad-Chennai-Kolkata': { payNow: 10000, payLater: 0, processing: 10000, express: 0},
+            },
+        },
+        'C1d-Visa': {
+            'Full-Process-Express-Dates': {
+                'Mumbai/Location-of-Your-Choice': { payNow: 10000, payLater: 5000, processing: 15000, express: 0},
+            },
+        },
+        'H1b/H4-Visa': {
+            'Express-Dates': {
+                'Location-of-your-choice/Hydrabad-Chennai': { payNow: 10000, payLater: 5000, processing: 0, express: 15000},
+            },
+        },
+        'F1/F2-Visa': {
+            'Express-Dates': {
+                'Mumbai/Location-of-Your-Choice': { payNow: 10000, payLater: 5000, processing: 0, express: 15000},
+            },
+        },
+        'L1/L2-Visa': {
+            'Express-Dates': {
+                'Location-of-your-choice/Hydrabad-Chennai': { payNow: 10000, payLater: 5000, processing: 0, express: 15000},
+            },
+        },
+        'Blanket-L1-Visa': {
+            'Express-Dates': {
+                'Chennai-Only': { payNow: 10000, payLater: 5000, processing: 0, express: 15000},
+            },
+        },
+        'Blanket-L2-Visa-Drop-visa': {
+            'Express-Dates': {
+                'Location-of-your-choice/Hydrabad-Chennai': { payNow: 10000, payLater: 5000, processing: 0, express: 15000},
+            },
+        },
+        'Immigration-Visa': {
+            'Full-Process-Dates': {
+                'Mumbai-Both-Dates': {payNow: 10000, payLater: 0, processing: 15000, express: 0},
+            },
+        },
+        'default': {
+            'pan-india': { payNow: 7500, payLater: 7500, processing: 0 },
+            'mumbai': { payNow: 14999, payLater: 9999, processing: 0 }
+        }
+    };
+
+    // Function to update prices based on selections
+    function updatePrices() {
+        const visa = visaSelect.value;
+        const service = servicesSelect.value;
+        const location = locationSelect.value;
+        const count = parseInt(travellerCount.textContent) || 1;
+
+        let payNowPrice = 0;
+        let payLaterPrice = 0;
+        let processingPrice = 0;
+        let expressPrice = 0;
+
+        // Check for specific price rules first
+        if (visa && service && location && 
+            PRICE_MATRIX[visa] && 
+            PRICE_MATRIX[visa][service] && 
+            PRICE_MATRIX[visa][service][location]) {
+            const prices = PRICE_MATRIX[visa][service][location];
+            payNowPrice = prices.payNow;
+            payLaterPrice = prices.payLater;
+            processingPrice = prices.processing;
+            expressPrice = prices.express || 0;
+        } else {
+            // Use default pricing based on location
+            const loc = location ? location.toLowerCase() : 'pan-india';
+            const defaultPrices = PRICE_MATRIX.default[loc] || PRICE_MATRIX.default['pan-india'];
+            payNowPrice = defaultPrices.payNow;
+            payLaterPrice = defaultPrices.payLater;
+            processingPrice = defaultPrices.processing;
+            expressPrice = defaultPrices.express || 0;
+        }
+
+        // Calculate totals
+        const payNowTotal = payNowPrice * count;
+        const payLaterTotal = payLaterPrice * count;
+        const processingTotal = processingPrice * count;
+        const expressTotal = expressPrice * count;
+        const total = payNowTotal + processingTotal + expressTotal;
+
+        // Update displayed amounts
+        payNowAmount.textContent = `Rs. ${payNowTotal.toLocaleString('en-IN')} x ${count}`;
+        payLaterAmount.textContent = `Rs. ${payLaterTotal.toLocaleString('en-IN')} x ${count}`;
+        processingFees.textContent = processingTotal > 0 ? `Rs. ${processingTotal.toLocaleString('en-IN')}` : 'Rs. 0';
+        ExpressDate.textContent = expressTotal > 0 ? `Rs. ${expressTotal.toLocaleString('en-IN')}/-` : 'Rs. 0/-';
+        totalAmount.textContent = `Rs. ${total.toLocaleString('en-IN')}/-`;
+    }
+
+    // Add event listeners
+    visaSelect.addEventListener('change', updatePrices);
+    servicesSelect.addEventListener('change', updatePrices);
+    locationSelect.addEventListener('change', updatePrices);
+    document.querySelector('.plus-btn').addEventListener('click', updatePrices);
+    document.querySelector('.minus-btn').addEventListener('click', updatePrices);
+
+    // Initialize prices
+    updatePrices();
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const loginSection = document.querySelector(".login");
     const registerSection = document.querySelector(".register");
@@ -196,6 +458,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const appointmentLocation = document.getElementById('appointmentLocation');
     const payNowAmount = document.getElementById('payNowAmount');
     const payLaterAmount = document.getElementById('payLaterAmount');
+    const ExpressDate = document.getElementById('ExpressDate');
     const totalAmount = document.getElementById('totalAmount');
     const minusBtn = document.querySelector('.minus-btn');
     const plusBtn = document.querySelector('.plus-btn');
@@ -204,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Base prices
     const PRICES = {
-        'pan-india': { payNow: 9999, payLater: 4999 },
+        'pan-india': { payNow: 7500, payLater: 7500 },
         'mumbai': { payNow: 14999, payLater: 9999 }
     };
 
@@ -244,6 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update displayed amounts - NOW SHOWING TOTALS
         payNowAmount.textContent = `Rs. ${payNowTotal.toLocaleString('en-IN')} x ${count}`;
+        ExpressDate.textContent = 'Rs. 0';
         payLaterAmount.textContent = `Rs. ${payLaterTotal.toLocaleString('en-IN')} x ${count}`;
         totalAmount.textContent = `Rs. ${payNowTotal.toLocaleString('en-IN')}/-`;
     }
@@ -310,3 +574,5 @@ document.getElementById('togglePassword').addEventListener('click', function() {
         toggleIcon.classList.add('bi-eye-slash');
     }
 });
+
+

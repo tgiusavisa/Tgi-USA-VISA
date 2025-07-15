@@ -7,8 +7,8 @@
   </ul>
 {% endif %}
 {% block content %}
-<div class='w-100 min-vh-100 d-flex flex-column justify-content-center align-items-center'>
-    <div class='w-75 min-vh-100 d-flex flex-column justify-content-center align-items-center'>
+<div class='w-100 d-flex flex-column justify-content-center align-items-center account-main-sec0'>
+    <div class='d-flex flex-column justify-content-center align-items-center account-main-sec1'>
         <div class='account-sec w-100 d-flex flex-column justify-content-center align-items-center'>
             <div class='position-relative w-100'>
                 <div class='login w-100 d-flex flex-column justify-content-center align-items-center position-absolute top-50 start-50 translate-middle'>
@@ -16,21 +16,21 @@
                     <p class="text-break text-center">
                         Welcome Back, Please enter Your details.
                     </p>
-                    <div class='w-50 d-flex flex-row justify-content-between align-items-center p-2 bg-light rounded-4'>
+                    <div class='d-flex flex-row justify-content-between align-items-center p-2 bg-light rounded-4 button-menu2 account-main-sec2'>
                         <button type="submit" class="login-btn btn btn-primary rounded-3 w-50 me-1 bg-white text-dark border-0 fs-5 fw-bold">Sign In</button>
                         <button type="submit" class="register-btn btn btn-primary rounded-3 w-50 ms-1 bg-transparent text-dark border-0 fs-5 fw-bold">Sign Up</button>
                     </div>
                     <div class='d-flex flex-column justify-content-center align-items-center bg-light m-3 p-4 ps-3 pe-3 rounded-4 border border-1'>
                         <form method="POST" action="{% url 'login_user' %}" class='w-100 d-flex flex-column justify-content-center align-items-center'>
                         {% csrf_token %}
-                        <div class='d-flex flex-row justify-content-between'>
-                            <div class="input-group w-50 p-1 ms-1 me-1">
+                        <div class='d-flex justify-content-between account-main-sec3'>
+                            <div class="input-group p-1 ms-1 me-1 account-main-sec4">
                                 <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
                                   <img src="/static/images/icons/email.svg" alt="Email Address" class='rounded'/>
                                 </span>
                                 <input type="email" name='email' class="form-control form-sec-01 form-sec-02 fs-5" style="border-radius: 0 12px 12px 0; border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important" placeholder="Email Address">
                             </div>
-                            <div class="input-group w-50 p-1 ms-1 me-1">
+                            <div class="input-group p-1 ms-1 me-1 account-main-sec4">
                                 <span class="input-group-text form-img form-sec-01 form-sec-02" style="border-radius: 12px 0 0 12px; border: 1.2px solid rgba(0, 0, 0, 0.5); border-right: none !important">
                                     <img src="/static/images/icons/password.svg" alt="Password" class='rounded'/>
                                 </span>
@@ -60,7 +60,7 @@
                     <p class="text-break text-center">
                         Welcome, Please enter Your details.
                     </p>
-                    <div class='w-50 d-flex flex-row justify-content-between align-items-center p-2 bg-light rounded-4'>
+                    <div class='d-flex flex-row justify-content-between align-items-center p-2 bg-light rounded-4 account-main-sec2'>
                         <button type="submit" class="login-btn btn btn-primary rounded-3 w-50 ms-1 bg-transparent text-dark border-0 fs-5 fw-bold">Sign In</button>
                         <button type="submit" class="register-btn btn btn-primary rounded-3 w-50 me-1 bg-white text-dark border-0 fs-5 fw-bold">Sign Up</button>
                     </div>
@@ -142,6 +142,7 @@
     {% endfor %}
 {% endif %}
 {% if login_status == 'invalid' %}
+
 <script>
   const query = new URLSearchParams(window.location.search);
   const status = query.get('status');

@@ -68,13 +68,14 @@ def login_user(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
+        users = User.objects.filter(email=email)
+        if not users.exists():
             messages.error(request, 'Invalid email or password')
             return redirect('/account/')
 
+        user = users.first()  # Take the first matched user
         user = authenticate(request, username=user.username, password=password)
+
         if user is not None:
             login(request, user)
             return redirect('/dashboard/')

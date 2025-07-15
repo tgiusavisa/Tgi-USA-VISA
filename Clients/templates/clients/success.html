@@ -1,10 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container p-5 text-center">
+<div class="container text-center payment-method-super-main">
     <h1 class="fw-bolder fs-1 main-heading">Secure Payment Gateway</h1>
     <p class='w-100 text-center'>Complete your transaction with our trusted payment system</p>
-    <div class='container row justify-content-around'>
-        <div class='border shadow-sm col-md-6 rounded-4 h-auto' style='width:47%;'>
+    <div class="container mb-5 border rounded p-4">
+    <h2 class="text-center mb-4">Appointment Summary</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Full Name:</strong> {{ full_name }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
+            <p><strong>Visa Type:</strong> {{ visa_type }}</p>
+        </div>
+        <div class="col-md-6">
+            <p><strong>Service:</strong> {{ service }}</p>
+            <p><strong>Location:</strong> {{ appointment_location }}</p>
+            <p><strong>Travellers:</strong> {{ travellers }}</p>
+        </div>
+    </div>
+    <div class="mt-3 pt-3 border-top">
+        <h4 class="text-center">Payment Summary</h4>
+        <ul class="list-unstyled">
+            <li><strong>Pay Now:</strong> {{ pay_now_amount }}</li>
+            <li><strong>Processing Fees:</strong> {{ processing_fees }}</li>
+            <li><strong>Express Date:</strong> {{ express_date }}</li>
+            <li><strong>Pay Later:</strong> {{ pay_later_amount }}</li>
+            <li class="fw-bold mt-2"><strong>Total Amount:</strong> {{ total_amount }}</li>
+        </ul>
+    </div>
+  </div>
+
+    <div class='container row justify-content-around payment-method-main '>
+        <div class='border shadow-sm col-md-6 rounded-4 h-auto sub-main-sec' style='width:47%;'>
             <div class='fw-bolder fs-2 main-heading'>Scan & Pay</div>
             <p class='text-center'>Use any UPI app to scan the QR code below</p>
             <img src="/static/images/scanner.jpg" alt="Payment Getways" class='w-50 border p-2 rounded-4 m-4'/>
@@ -17,13 +43,13 @@
             </div>
             <p class='text-center'>This payment option refreshes every 15 minutes</p>
         </div>
-        <div class='border shadow-sm col-md-6 rounded-4 pt-4 pb-4 ' style='width:47%;'>
+        <div class='border shadow-sm col-md-6 rounded-4 pt-4 pb-4  sub-main-sec' style='width:47%;'>
                 <h1 class="w-100 text-center fw-bolder fs-2 main-heading">Payment Instructions</h1>
                 <div class='w-100 d-flex justify-content-around align-item-center'>
                     <div class='line mb-2 ms-2'></div>
                 </div>
                 <div>
-                    <div class="list-group">
+                    <div class="list-group innder-sec-121">
                       <a href="#" class="list-group-item list-group-item-action rounded-4 mt-2 mb-2" style='background-color: rgba(255, 221, 0, 0.29); border: 1.5px solid #FFDD00;'>
                         <div class="d-flex w-100 justify-content-between rounded-4">
                           <h5 class="mb-1">- Scan the QR Code</h5>
@@ -59,7 +85,7 @@
                 </div>
         </div>
     </div>
-    <div class='container row justify-content-around mt-5'>
+    <div class='container row justify-content-around mt-4 p-0 m-0'>
         <div class='border shadow-sm rounded-4 pt-4 pb-4' style='width:98%;'>
             <h1 class="w-100 text-center fw-bolder fs-2 main-heading">Confirm Your Payment</h1>
             <div class='w-100 d-flex justify-content-around align-item-center'>
@@ -82,7 +108,7 @@
                         <input name="email" type="email" class="form-control" required>
                     </div>
                     <div class="w-100 text-center">
-                        <button type="submit" class="mb-5 mt-3 w-50 btn btn-warning rounded-pill fw-bold fs-5">
+                        <button type="submit" class="mt-4  btn btn-warning rounded-pill fw-bold fs-5 success-main-button">
                             Submit Payment Proof
                         </button>
                     </div>
@@ -93,3 +119,38 @@
 </div>
 <div id="copy-toast" class="toast-popup">UPI ID copied to clipboard!</div>
 {% endblock %}
+<script>
+  def process_appointment(request):
+    if request.method == 'POST':
+        try:
+            # Store all data in session
+            request.session['booking_data'] = {
+                'full_name': request.POST.get('full_name'),
+                'mobile_number': request.POST.get('mobile_number'),
+                'email': request.POST.get('email'),
+                'visa_type': request.POST.get('visa_type'),
+                'service': request.POST.get('service'),
+                'appointment_location': request.POST.get('appointment_location'),
+                'travellers': request.POST.get('travellers'),
+                'pay_now_amount': request.POST.get('pay_now_amount'),
+                'processing_fees': request.POST.get('processing_fees'),
+                'express_date': request.POST.get('express_date'),
+                'pay_later_amount': request.POST.get('pay_later_amount'),
+                'total_amount': request.POST.get('total_amount'),
+            }
+            
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'status': 'success',
+                    'redirect_url': reverse('success_page')
+                })
+            return redirect('success_page')
+        except Exception as e:
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'status': 'error',
+                    'errors': {'__all__': [str(e)]}
+                }, status=400)
+            messages.error(request, f"Error processing appointment: {str(e)}")
+            return redirect('appointment_details')
+</script>

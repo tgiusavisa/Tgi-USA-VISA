@@ -3,8 +3,7 @@ from .models import BookingDetail, Payment
 
 @admin.register(BookingDetail)
 class BookingDetailAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'visa_type', 'appointment_location', 'travellers', 
-                   'email', 'mobile_number', 'created_at', 'user', 'usavisa_email')
+    list_display = ('full_name', 'visa_type', 'service_type', 'appointment_location', 'travellers', 'email', 'mobile_number', 'created_at', 'user', 'usavisa_email')
     list_filter = ('visa_type', 'appointment_location', 'created_at')
     search_fields = ('full_name', 'email', 'mobile_number', 'usavisa_email')
     readonly_fields = ('created_at', 'security_questions_preview')
@@ -21,7 +20,7 @@ class BookingDetailAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Basic Information', {
-            'fields': ('user', 'visa_type', 'appointment_location', 'travellers')
+            'fields': ('user', 'visa_type','service_type', 'appointment_location', 'travellers')
         }),
         ('Personal Details', {
             'fields': ('full_name', 'mobile_number', 'email')

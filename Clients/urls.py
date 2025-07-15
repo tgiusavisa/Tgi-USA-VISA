@@ -8,4 +8,6 @@ urlpatterns = [
     path('success/', views.success_page, name='success_page'),
     path('visatype/<str:visa_type>/<str:full_name>/', views.next_step_form, name='next_step_form'),
     path('save-visa-credentials/', views.save_visa_credentials, name='save_visa_credentials'),
+    path('appointment_details/', views.appointment_details, name='appointment_details'),
+    path('process_appointment/', views.process_appointment, name='process_appointment'),
 ]

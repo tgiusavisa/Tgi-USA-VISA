@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import BookingDetail, Payment
 from .forms import BookingDetailForm, PaymentProofForm
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,7 @@ import json
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.contrib import messages
 
 
 @login_required
@@ -48,62 +50,120 @@ def save_visa_credentials(request):
 
 
 def appointment_form(request, visa_type):
-    # Get parameters from URL
-    appointment_location = request.GET.get('location', 'pan-india')
-    travellers = int(request.GET.get('travelers', 1))
-    
-    if request.method == 'POST':
-        # Store form data in session instead of saving
-        form = BookingDetailForm(request.POST)
-        if form.is_valid():
-            request.session['booking_data'] = {
-                'visa_type': visa_type,
-                'appointment_location': appointment_location,
-                'travellers': travellers,
-                'full_name': form.cleaned_data['full_name'],
-                'mobile_number': form.cleaned_data['mobile_number'],
-                'email': form.cleaned_data['email']
-            }
-            return redirect('success_page')
-    else:
-        form = BookingDetailForm()
-    
+    pay_now_amount = request.GET.get('payNowAmount', 'Rs. 0')
+    processing_fees = request.GET.get('ProcessingFees', 'Rs. 0')
+    express_date = request.GET.get('ExpressDate', 'Rs. 0')
+    pay_later_amount = request.GET.get('payLaterAmount', 'Rs. 0')
+    total_amount = request.GET.get('totalAmount', 'Rs. 0')
+
     context = {
-        'form': form,
         'visa_type': visa_type,
-        'appointment_location': appointment_location,
-        'travellers': travellers,
+        'pay_now_amount': pay_now_amount,
+        'processing_fees': processing_fees,
+        'express_date': express_date,
+        'pay_later_amount': pay_later_amount,
+        'total_amount': total_amount,
     }
+
     return render(request, 'clients/form.html', context)
 
+def appointment_details(request):
+    context = {
+        'visa_type': request.GET.get('visa_type', ''),
+        'service': request.GET.get('service', ''),
+        'appointment_location': request.GET.get('location', ''),
+        'travellers': request.GET.get('travelers', '1'),
+        'pay_now_amount': request.GET.get('payNowAmount', 'Rs. 0'),
+        'processing_fees': request.GET.get('ProcessingFees', 'Rs. 0'),
+        'express_date': request.GET.get('ExpressDate', 'Rs. 0'),
+        'pay_later_amount': request.GET.get('payLaterAmount', 'Rs. 0'),
+        'total_amount': request.GET.get('totalAmount', 'Rs. 0'),
+    }
+    return render(request, 'clients/appointment_details.html', context)
+
+def process_appointment(request):
+    if request.method == 'POST':
+        try:
+            # Store all data in session
+            request.session['booking_data'] = {
+                'full_name': request.POST.get('full_name'),
+                'mobile_number': request.POST.get('mobile_number'),
+                'email': request.POST.get('email'),
+                'visa_type': request.POST.get('visa_type'),
+                'service': request.POST.get('service'),
+                'appointment_location': request.POST.get('appointment_location'),
+                'travellers': request.POST.get('travellers'),
+                'pay_now_amount': request.POST.get('pay_now_amount'),
+                'processing_fees': request.POST.get('processing_fees'),
+                'express_date': request.POST.get('express_date'),
+                'pay_later_amount': request.POST.get('pay_later_amount'),
+                'total_amount': request.POST.get('total_amount'),
+            }
+            
+            # Redirect to success page
+            return redirect('success_page')
+        except Exception as e:
+            messages.error(request, f"Error processing appointment: {str(e)}")
+            return redirect('appointment_details')
 
 @login_required
 def submit_payment_proof(request):
     if request.method == 'POST':
-        # Get booking data from session
         booking_data = request.session.get('booking_data')
         if not booking_data:
-            return redirect('home')  # Or handle missing data
+            messages.error(request, "Session expired or invalid. Please start the booking process again.")
+            return redirect('home')
         
-        payment_form = PaymentProofForm(request.POST, request.FILES)
-        if payment_form.is_valid():
-            # Save both models
-            booking = BookingDetail.objects.create(
-                user=request.user if request.user.is_authenticated else None,
-                **booking_data
-            )
-            
-            payment = payment_form.save(commit=False)
-            payment.booking = booking  # Link payment to booking
-            payment.save()
-            
-            send_payment_proof_email(payment, booking)
-
+        # Create BookingDetail first
+        booking = BookingDetail.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            visa_type=booking_data.get('visa_type'),
+            service_type=booking_data.get('service'),  # Make sure this matches your model field name
+            appointment_location=booking_data.get('appointment_location'),
+            travellers=booking_data.get('travellers', 1),
+            full_name=booking_data.get('full_name'),
+            mobile_number=booking_data.get('mobile_number'),
+            email=booking_data.get('email'),
+            # Add any other fields from booking_data that match your model
+        )
+        
+        # Then create Payment
+        payment = Payment(
+            booking=booking,
+            payment_proof=request.FILES.get('payment_proof'),
+            full_name=request.POST.get('full_name'),
+            email=request.POST.get('email'),
+            status='under_process'
+        )
+        payment.save()
+        
+        # Send email notification
+        send_payment_proof_email(payment, booking)
+        
+        # Clear session data
+        if 'booking_data' in request.session:
             del request.session['booking_data']
-            return render(request, 'clients/payment_thankyou.html', {'payment': payment})
+            
+        return render(request, 'clients/payment_thankyou.html', {
+            'payment': payment,
+            'booking': booking
+        })
     
-    payment_form = PaymentProofForm()
-    return render(request, 'clients/success.html', {'payment_form': payment_form})
+    # If GET request, show the form with booking data
+    booking_data = request.session.get('booking_data', {})
+    return render(request, 'clients/success.html', {
+        'full_name': booking_data.get('full_name', ''),
+        'email': booking_data.get('email', ''),
+        'visa_type': booking_data.get('visa_type', ''),
+        'service': booking_data.get('service', ''),
+        'appointment_location': booking_data.get('appointment_location', ''),
+        'travellers': booking_data.get('travellers', '1'),
+        'pay_now_amount': booking_data.get('pay_now_amount', 'Rs. 0'),
+        'processing_fees': booking_data.get('processing_fees', 'Rs. 0'),
+        'express_date': booking_data.get('express_date', 'Rs. 0'),
+        'pay_later_amount': booking_data.get('pay_later_amount', 'Rs. 0'),
+        'total_amount': booking_data.get('total_amount', 'Rs. 0'),
+    })
 
 def send_payment_proof_email(payment, booking):
     subject = f'New Payment Proof Submission - {booking.full_name}'
@@ -155,7 +215,21 @@ def send_payment_proof_email(payment, booking):
 
 @login_required
 def success_page(request):
-    return render(request, 'clients/success.html')
+    booking_data = request.session.get('booking_data', {})
+    context = {
+        'full_name': booking_data.get('full_name', ''),
+        'email': booking_data.get('email', ''),
+        'visa_type': booking_data.get('visa_type', ''),
+        'service': booking_data.get('service', ''),
+        'appointment_location': booking_data.get('appointment_location', ''),
+        'travellers': booking_data.get('travellers', '1'),
+        'pay_now_amount': booking_data.get('pay_now_amount', 'Rs. 0'),
+        'processing_fees': booking_data.get('processing_fees', 'Rs. 0'),
+        'express_date': booking_data.get('express_date', 'Rs. 0'),
+        'pay_later_amount': booking_data.get('pay_later_amount', 'Rs. 0'),
+        'total_amount': booking_data.get('total_amount', 'Rs. 0'),
+    }
+    return render(request, 'clients/success.html', context)
 
 @login_required
 def next_step_form(request, visa_type, full_name):

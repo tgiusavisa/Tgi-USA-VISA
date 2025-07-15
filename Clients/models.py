@@ -6,17 +6,36 @@ User = get_user_model()
 
 class BookingDetail(models.Model):
     VISA_CHOICES = [
-        ('B1B2-Visa', 'B1/B2 Visa'),
-        ('H1-H2', 'H1 H4/ L1 L2/ C1D / F1 F2 / J1 J2'),
+        ('B1B2-Visa', 'B1B2 Visa'),
+        ('B1B2-Visa Dropbox', 'B1B2 Visa Dropbox'),
+        ('C1d-Visa', 'C1d- fresh or Dropbox'),
+        ('H1b/H4-Visa', 'H1b/H4- Fresh or Dropbox'),
+        ('F1/F2-Visa', 'F1/F2- fresh or dropbox'),
+        ('L1/L2-Visa', 'L1/L2- Fresh or Dropbox'),
+        ('Blanket-L1-Visa', 'Blanket L1 Visa'),
+        ('Blanket-L2-Visa-Drop-visa', 'Blanket L2 Visa Drop/Fresh'),
+        ('Immigration-Visa', 'Immigration Visa Any category'),
+    ]
+    Service_CHOICES = [
+        ('Only-Slot-Booking', 'Only Slot Booking'),
+        ('Only-Normal-Process', 'Only Normal Process'),
+        ('Express-Dates', 'Express Dates'),
+        ('Full-Process-Dates', 'Full Process & Dates'),
+        ('Full-Process-Express-Dates', 'Full Process & Express Dates'),
     ]
     
     LOCATION_CHOICES = [
-        ('pan-india', 'Pan India - Biometrics and Interview'),
-        ('mumbai', 'Mumbai - Biometrics and Interview'),
+        ('Pan-India', 'Pan India'),
+        ('Chennai-Only', 'Chennai Only'),
+        ('Mumbai-Both-Dates', 'Mumbai-(Both Dates'),
+        ('Mumbai-Delhi-Hydrabad-Chennai-Kolkata', 'Mumbai, Delhi, Hydrabad, Chennai, Kolkata'),
+        ('Mumbai/Location-of-Your-Choice', 'Mumbai/Location of Your Choice'),
+        ('Location-of-your-choice/Hydrabad-Chennai', 'Location of your Choice/Hydrabad or Chennai'),
     ]
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     visa_type = models.CharField(max_length=50, choices=VISA_CHOICES)
+    service_type = models.CharField(max_length=50, choices=Service_CHOICES)
     appointment_location = models.CharField(max_length=50, choices=LOCATION_CHOICES)
     travellers = models.PositiveIntegerField(default=1)
     full_name = models.CharField(max_length=100)

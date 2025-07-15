@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% block content %}
+{% load custom_filters %}
+<div class='main-homesection w-100 main-form-desktop' style="background-image: url('{{ visa.img.url }}'); background-size: cover; background-position: center;">
+    <div class='main-homesection w-100 overlay d-flex flex-row justify-content-evenly align-items-center' style="background-image: url('#'); background-color:rgba(0, 0, 0, 0.6);">
+        <div class='w-50 d-flex flex-column justify-content-center align-items-start p-5 rounded-5 visa-glass'>
+            <h1 class='fw-bolder fs-1 main-heading text-white'>{{ visa.heading1 }}</h1>
+            <p class='fs-5 mt-2 mb-2 text-white'>{{ visa.heading2 }}</p>
+            <a href="#" class="w-50 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-2 pb-2 mt-3 button2 text-dark border-2" data-bs-toggle="modal" data-bs-target="#bookVisaModal">
+                Book Your Visa
+            </a>
+        </div>
+        <div class='w-25 bg-transition'></div>
+    </div>
+</div>
+<div class='main-homesection w-100 main-form-mobile' style="background-image: url('{{ visa.img.url }}'); background-size: cover; background-position: center; height:300px;">
+    <div class='main-homesection w-100 overlay d-flex flex-row justify-content-evenly align-items-center' style="background-image: url('#'); background-color:rgba(0, 0, 0, 0.6); height:300px;">
+        <div class='w-100 d-flex flex-column justify-content-center align-items-center rounded-5 visa-glass' style='height:150px;'>
+            <p class='fs-5 mt-2 mb-2 text-white'>{{ visa.heading2 }}</p>
+            <a href="#" class="w-75 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-2 pb-2 mt-3 button2 text-dark border-2 mb-3" data-bs-toggle="modal" data-bs-target="#bookVisaModal">
+                Book Your Visa
+            </a>
+        </div>
+        <div class='w-25 bg-transition'></div>
+    </div>
+</div>
+<div class='w-100 d-flex flex-column justify-content-center align-items-center mt-5'>
+    <div class='fw-bolder fs-3 main-heading'>Short Details Regarding Appointments in the USA</div>
+    <div class='line mb-2 mt-2'></div>
+    <div class="container">
+        <div class="row row-cols-4 justify-content-around pb-5">
+            <div class='visa-main-sec shadow-sm rounded-4 p-2 d-flex flex-row w-auto align-items-center ms-3 me-3 mb-3'>
+                <div class='m-1'>
+                    <img src="/static/images/img1.jpg" alt="Hero" class='visa-min-sec rounded-3'/>
+                </div>
+                <div class='m-1'>
+                    <h2 class='fs-6'>Appointment Type: </h2><p>20days</p>
+                </div>
+            </div>
+            <div class='visa-main-sec shadow-sm rounded-4 p-2 d-flex flex-row w-auto align-items-center ms-3 me-3 mb-3'>
+                <div class='m-1'>
+                    <img src="/static/images/img1.jpg" alt="Hero" class='visa-min-sec rounded-3'/>
+                </div>
+                <div class='m-1'>
+                    <h2 class='fs-6'>Processing Time: </h2><p>20days</p>
+                </div>
+            </div>
+            <div class='visa-main-sec shadow-sm rounded-4 p-2 d-flex flex-row w-auto align-items-center ms-3 me-3 mb-3'>
+                <div class='m-1'>
+                    <img src="/static/images/img1.jpg" alt="Hero" class='visa-min-sec rounded-3'/>
+                </div>
+                <div class='m-1'>
+                    <h2 class='fs-6'>Required Documents: </h2><p>20days</p>
+                </div>
+            </div>
+            <div class='visa-main-sec shadow-sm rounded-4 p-2 d-flex flex-row w-auto align-items-center ms-3 me-3 mb-3'>
+                <div class='m-1'>
+                    <img src="/static/images/img1.jpg" alt="Hero" class='visa-min-sec rounded-3'/>
+                </div>
+                <div class='m-1'>
+                    <h2 class='fs-6'>Visa Fees: </h2><p>20days</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div class='w-100 d-flex flex-column justify-content-center align-items-center'>
+    <div class="container">
+        <h1 class='fw-bolder fs-6 main-heading'>{{ visa.heading1 }}</h1>
+        <h1 class='fw-bolder fs-4 main-heading text-dark'>{{ visa.heading2 }}</h1>
+        <p class='fs-6'><b><s>Rs. {{ visa.regular_price|indian_currency }}/-</s> <span class='text-danger ms-3'>Rs. {{ visa.offer_price|indian_currency }}/- </span></b></p>
+        <div class='line mb-2 mt-2 w-25'></div>
+        <p>{{ visa.description|safe }}</p>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="bookVisaModal" tabindex="-1" aria-labelledby="bookVisaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4 p-3">
+      <div class="modal-header border-0">
+        <div class='w-100 fw-bolder fs-5 main-heading text-center'>Get Appointment Guaranteed </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- BEGIN Form Content (Copied from your index.html) -->
+        <form id="appointmentForm" class="container">
+          <!-- Visa Type -->
+          <div class="input-group mt-3">
+                        <span class="input-group-text form-img form-sec-01 pt-2 pb-2 form-border1">
+                          <img src="/static/images/icons/visa.svg" alt="Visa" class='rounded'/>
+                        </span>
+                        <select class="form-select form-control form-sec-01 fs-5 pt-2 pb-2 form-border2" id="visa">
+                            <option value="" selected disabled id="defaultOption">Visa Type</option>
+                            <option value="B1B2-Visa">B1 B2 Visa</option>
+                            <option value="H1-H2">H1 H4/ L1 L2/ C1D / F1 F2 / J1 J2 </option>
+                        </select>
+                    </div>
+                    <div class="input-group mt-3">                                                                                                                                                                                                                                                                                                                                        
+                        <span class="input-group-text form-img form-sec-01 pt-2 pb-2 form-border1">
+                          <img src="/static/images/icons/appointment.svg" alt="Visa" class='rounded'/>
+                        </span>
+                        <select class="form-select form-control form-sec-01 fs-5 pt-2 pb-2 form-border2" id="appointmentLocation">
+                            <option value="" selected disabled id="defaultOption">Appointment Location</option>
+                            <option value="pan-india">Pan india - Biometrics and Interview</option>
+                            <option value="mumbai">Mumbai - Biometrics and Interview</option>
+                        </select>
+                    </div>
+
+          <div class="input-group mt-3">
+                        <span class="input-group-text form-img form-sec-01 pt-2 pb-2 form-border1">
+                            <img src="/static/images/icons/group.svg" alt="Group" class='rounded'/>
+                        </span>
+                        <input type="text" class="form-control form-sec-01 pt-2 pb-2" style="border: 1.2px solid rgba(0, 0, 0, 0.5); border-left: none !important; border-right: none;" id="travellers" placeholder="Traveller" value="1" readonly>
+                        <span class="input-group-text form-img form-sec-01 pt-2 pb-2 form-border2">
+                            <button class="btn btn-sm p-0 minus-btn">
+                                <img src="/static/images/icons/minus.svg" alt="Minus" style='width:15px !important; object-fit:contain !important;'/>
+                            </button>
+                            <span class="mx-2 fw-bold fs-5 traveller-count">1</span>
+                            <button class="btn btn-sm p-0 plus-btn">
+                                <img src="/static/images/icons/plus.svg" alt="Add" style='width:15px !important; object-fit:contain !important;'/>
+                            </button>
+                        </span>
+                    </div>
+                    <div class='mt-2'>
+                        <p class=' w-25 text-center fw-bolder fs-6 rounded-pill ps-2 pe-2 m-1 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Price<p>
+                        <ul class='m-0 p-0'>
+                            <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Pay Now</span><span id="payNowAmount">Rs. 9,999 x 1</span></li>
+                            <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Inteview Training</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                            <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Document Checklikst</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                            <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>DS160 Form Review & Suggestion</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                            <li class='fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>24/7 Assistance</span><span class='rounded-pill ps-2 pe-2 text-dark' style='background-color: #FFDD00; padding-bottom:1px !important;'>Free</span></li>
+                            <div class='w-100 d-flex flex-row align-item-center justify-content-center mt-2 mb-2'><div class='line'></div></div>
+                            <li class='fs-6 fw-bold d-flex flex-row align-item-center justify-content-between'><span>Pay later</span><span id="payLaterAmount">Rs. 4,999 x 1</span></li>
+                            <li class='fs-6 fw-bold d-flex flex-row align-item-center justify-content-between'><span>Total Amount</span><span id="totalAmount">Rs. 9,999/-</span></li>
+                        </ul>
+                    <div>
+
+          <!-- Submit -->
+            <button type="button" onclick="submitAppointmentForm()" class="mt-3 w-100 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-1 pb-1 button2 text-dark border-2 fs-5">
+                Scheduled Appointment
+            </button>
+        </form>
+        <!-- END Form Content -->
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// Appointment form submit handler (replica of index.html)
+function submitAppointmentForm() {
+    const visaSelect = document.getElementById('visa');
+    const locationSelect = document.getElementById('appointmentLocation');
+    const travellersInput = document.querySelector('.traveller-count');
+
+    const visaValue = visaSelect.value;
+    const locationValue = locationSelect.value;
+    const travellersValue = travellersInput.textContent;
+
+    if (!visaValue) {
+        alert('Please select a visa type');
+        return;
+    }
+
+    const url = `/visa/${visaValue}/schedule-appointment/?location=${locationValue}&travelers=${travellersValue}`;
+    window.location.href = url;
+}
+
+// Traveller +/- logic
+document.addEventListener("DOMContentLoaded", function () {
+    const minusBtn = document.querySelector(".minus-btn");
+    const plusBtn = document.querySelector(".plus-btn");
+    const travellerCount = document.querySelector(".traveller-count");
+    const travellersInput = document.getElementById("travellers");
+    const payNowAmount = document.getElementById("payNowAmount");
+    const payLaterAmount = document.getElementById("payLaterAmount");
+    const totalAmount = document.getElementById("totalAmount");
+
+    let count = 1;
+    const price = 9999;
+    const later = 4999;
+
+    function updateAmounts() {
+        travellerCount.textContent = count;
+        travellersInput.value = count;
+        payNowAmount.textContent = `Rs. ${price} x ${count}`;
+        payLaterAmount.textContent = `Rs. ${later} x ${count}`;
+        totalAmount.textContent = `Rs. ${price * count}/-`;
+    }
+
+    plusBtn.addEventListener("click", () => {
+        count++;
+        updateAmounts();
+    });
+
+    minusBtn.addEventListener("click", () => {
+        if (count > 1) {
+            count--;
+            updateAmounts();
+        }
+    });
+
+    updateAmounts(); // initial call
+});
+</script>
+{% endblock %}

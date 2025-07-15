@@ -2,15 +2,23 @@
     <main class='main-header w-100 p-2'>
         <div class='sub-header d-flex flex-row justify-content-around align-items-center'>
             <div class='header-inner-sec w-25 align-items-center justify-content-start d-flex'>
-                
+                <a class='border-0 bg-transparent' href="{% url 'index' %}">
+                  <img src="/static/images/logo.jpg" alt="Services" class='rounded-circle object-fit-cover bg-black p-1' style='width:60px; height:60px;'/>
+                </a>
             </div>
-            <div class='header-inner-sec w-25 align-items-center justify-content-evenly d-flex'>
-                <a href="{% url 'visa' %}" class='text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-white fw-bold pb-1'>
+            <div class='header-inner-sec w-25 align-items-center justify-content-evenly d-flex header-logo'>
+                {% comment %} <a href="{% url 'visa' %}" class='text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-white fw-bold pb-1'>
                     USA Visa
                     <svg viewBox="0 0 24 24" fill="currentColor" class='mt-1'>
                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                     </svg>
 
+                </a> {% endcomment %}
+                <a href="{% url 'about' %}" class='button1-header text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-white fw-bold pb-1 w-auto ps-2 pe-2'>
+                  TGI USA Visa
+                  <svg viewBox="0 0 24 24" fill="currentColor" class='mt-1'>
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
                 </a>
                 <a href="{% url 'blog_list' %}" class='text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-white fw-bold pb-1'>
                     Blogs
