@@ -36,36 +36,21 @@
             <div class="col-8">
               <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
               <div class="carousel-inner rounded-5 border">
-                <div class="carousel-item active">
-                <img src="/static/images/img1.jpg" class="d-block w-100" alt="..." style='height:65vh; width:100%; object-fit:cover;'>
+                {% for slider in home.hero_sliders.all %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ slider.image.url }}" class="d-block w-100" alt="{{ slider.heading }}" style='height:65vh; width:100%; object-fit:cover;'>
                     <div class="carousel-caption d-none d-md-block pt-0 pb-1">
                         <div class='text-white fw-bolder fs-4 ms-2'>
                             <span id="visitor-count">{{ visitor_count }}</span>+ 
                             <span class='fs-6 fw-normal'>Visitors</span>
                         </div>
-                        <h2 class='fs-2 text-white fw-bold me-5'>Apply for a U.S. Visa from India</h2>  
+                        <h2 class='fs-2 text-white fw-bold'>{{ slider.heading }}</h2>
+                        {% if slider.subheading %}
+                        <p class='text-white'>{{ slider.subheading }}</p>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="carousel-item">
-                <img src="/static/images/hero.jpg" class="d-block w-100" alt="..." style='height:65vh; width:100%; object-fit:cover;'>
-                    <div class="carousel-caption d-none d-md-block pt-0 pb-1">
-                        <div class='text-white fw-bolder fs-4 ms-2'>
-                            <span id="visitor-count">{{ visitor_count }}</span>+ 
-                            <span class='fs-6 fw-normal'>Visitors</span>
-                        </div>
-                        <h2 class='fs-2 text-white fw-bold me-5'>First Slide Heading</h2>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                <img src="./static/images/herosec2.png" class="d-block w-100" alt="..." style='height:65vh; width:100%; object-fit:cover;'>
-                    <div class="carousel-caption d-none d-md-block pt-0 pb-1">
-                        <div class='text-white fw-bolder fs-4 ms-2'>
-                            <span id="visitor-count">{{ visitor_count }}</span>+ 
-                            <span class='fs-6 fw-normal'>Visitors</span>
-                        </div>
-                        <h2 class='fs-2 text-white fw-bold me-5'>First Slide Heading</h2>
-                    </div>
-                </div>
+                {% endfor %}
               </div>
             </div>
             <div class='text-center fw-bolder fs-2 main-heading rounded-5 p-2 text-dark mt-4' style='background-color: #FFDD00; padding-bottom:1px !important;'>Guaranteed Visa Appointment Scheduled Within 1 to 8 Weeks</div>
@@ -172,44 +157,32 @@
         </div>
         </div>
     </div>
-    <div class="main-hero-container container mt-4 main-form-mobile" style='height:1100px;'>
+    {% comment %} <div class="main-hero-container container mt-4 main-form-mobile" style='height:1100px;'>
         <div style='height:auto;'>
             <div class="col">
-              <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
-              <div class="carousel-inner rounded-5 border">
-                <div class="carousel-item active">
-                <img src="/static/images/img1.jpg" class="d-block w-100" alt="..." style='height:45vh; width:100%; object-fit:cover;'>
-                    <div class="carousel-caption d-none d-md-block pt-0 pb-1">
-                        <div class='text-white fw-bolder fs-4 ms-2'>
-                            <span id="visitor-count">{{ visitor_count }}</span>+ 
-                            <span class='fs-6 fw-normal'>Visitors</span>
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                    <div class="carousel-inner rounded-5 border">
+                        {% for slider in home.hero_sliders.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ slider.image.url }}" class="d-block w-100" alt="{{ slider.heading }}" style='height:45vh; width:100%; object-fit:cover;'>
+                            <div class="carousel-caption d-none d-md-block pt-0 pb-1">
+                                <div class='text-white fw-bolder fs-4 ms-2'>
+                                    <span id="visitor-count">{{ visitor_count }}</span>+ 
+                                    <span class='fs-6 fw-normal'>Visitors</span>
+                                </div>
+                                <h2 class='fs-2 text-white fw-bold'>{{ slider.heading }}</h2>
+                                {% if slider.subheading %}
+                                <p class='text-white'>{{ slider.subheading }}</p>
+                                {% endif %}
+                            </div>
                         </div>
-                        <h2 class='fs-2 text-white fw-bold'>Apply for a U.S. Visa from India</h2>  
+                        {% endfor %}
                     </div>
                 </div>
-                <div class="carousel-item">
-                <img src="/static/images/hero.jpg" class="d-block w-100" alt="..." style='height:45vh; width:100%; object-fit:cover;'>
-                    <div class="carousel-caption d-none d-md-block pt-0 pb-1">
-                        <div class='text-white fw-bolder fs-4 ms-2'>
-                            <span id="visitor-count">{{ visitor_count }}</span>+ 
-                            <span class='fs-6 fw-normal'>Visitors</span>
-                        </div>
-                        <h2 class='fs-2 text-white fw-bold'>First Slide Heading</h2>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                <img src="./static/images/herosec2.png" class="d-block w-100" alt="..." style='height:45vh; width:100%; object-fit:cover;'>
-                    <div class="carousel-caption d-none d-md-block pt-0 pb-1">
-                        <div class='text-white fw-bolder fs-4 ms-2'>
-                            <span id="visitor-count">{{ visitor_count }}</span>+ 
-                            <span class='fs-6 fw-normal'>Visitors</span>
-                        </div>
-                        <h2 class='fs-2 text-white fw-bold'>First Slide Heading</h2>
-                    </div>
-                </div>
-              </div>
             </div>
-            <div class='text-center fw-bolder fs-2 main-heading rounded-4 text-dark mt-4 pb-2' style='background-color: #FFDD00;'>Guaranteed Visa Appointment Scheduled Within 1 to 8 Weeks</div>
+            <div class='text-center fw-bolder fs-2 main-heading rounded-4 text-dark mt-4 pb-2' style='background-color: #FFDD00;'>
+                Guaranteed Visa Appointment Scheduled Within 1 to 8 Weeks
+            </div>
         </div>
             <div class="col bg-white rounded-4 pb-3 pt-2 border border-gray shadow-sm main-form mt-3 mb-3 ms-2 me-2">
               <div class='fw-bolder fs-5 main-heading text-center'>Get Appointment Guaranteed </div>
@@ -312,7 +285,7 @@
             </div>
         </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     {% comment %} <div class="main-hero-container container mt-4 main-form-mobile" style='height:1100px;'>
         <div class="" style='height:auto;'>
             <div class="col">

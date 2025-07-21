@@ -12,9 +12,8 @@
                     <svg viewBox="0 0 24 24" fill="currentColor" class='mt-1'>
                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                     </svg>
-
                 </a> {% endcomment %}
-                <a href="{% url 'about' %}" class='button1-header text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-white fw-bold pb-1 w-auto ps-2 pe-2'>
+                {% comment %} <a href="{% url 'about' %}" class='button1-header text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-white fw-bold pb-1 w-auto ps-2 pe-2'>
                   TGI USA Visa
                   <svg viewBox="0 0 24 24" fill="currentColor" class='mt-1'>
                       <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -26,7 +25,7 @@
                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                     </svg>
 
-                </a>
+                </a> {% endcomment %}
             </div>
             <div class='header-inner-sec side-header w-25 align-items-center justify-content-end d-flex'> 
                 <a href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'account' %}{% endif %}" 
@@ -38,32 +37,79 @@
                 <!-- Add this right after the <header> tag -->
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel" style="z-index: 1100;">
                   <div class='offcanvas-header w-100  text-decoration-none align-items-center justify-content-center d-flex fw-bold pt-2 pb-2 button2 text-dark border-2'  style='border: 2px solid rgba(255, 221, 0, 1) !important;'>
-                    <h5 class="offcanvas-title" id="sidebarMenuLabel">TGI USA Visa</h5>
+                    <h5 class="offcanvas-title fs-6" id="sidebarMenuLabel">TGI USA Visa</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                   </div>
                   <div class="offcanvas-body bg-light">
                     <ul class="nav flex-column h-100">
-                      <li class="nav-item mt-3">
-                        <a class="text-decoration-none text-uppercase text-dark fs-4 fw-normal pt-3 pb-3" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'visa' %}">Types of VISA TGI Have</a>
+                      <li class="nav-item mt-2">
+                        <a class="text-decoration-none text-uppercase text-dark fs-6 fw-normal pt-2 pb-2" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'about' %}">About TGI USA Visa</a>
                         <div class='w-100 line mt-2 mb-2'></div>
                       </li>
-                      <li class="nav-item mt-3">
-                        <a class="text-decoration-none text-uppercase text-dark fs-4 fw-normal pt-3 pb-3" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'about' %}">About TGI USA Visa</a>
+                      {% comment %} <li class="nav-item mt-2">
+                        <a class="text-decoration-none text-uppercase text-dark fs-6 fw-normal pt-2 pb-2" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'visa' %}">Types of VISA TGI Have</a>
+                        <div class='w-100 line mt-2 mb-2'></div>
+                      </li> {% endcomment %}
+                      <li class="nav-item mt-2">
+                        <a class="text-decoration-none text-uppercase text-dark fs-6 fw-normal pt-2 pb-2" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'blog_list' %}">Blogs</a>
                         <div class='w-100 line mt-2 mb-2'></div>
                       </li>
-                      <li class="nav-item mt-3">
-                        <a class="text-decoration-none text-uppercase text-dark fs-4 fw-normal pt-3 pb-3" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'blog_list' %}">Blogs</a>
+                      <li class="nav-item mt-2">
+                        <a class="text-decoration-none text-uppercase text-dark fs-6 fw-normal pt-2 pb-2" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'policy' %}">Contact Us</a>
                         <div class='w-100 line mt-2 mb-2'></div>
                       </li>
-                      <li class="nav-item mt-3">
-                        <a class="text-decoration-none text-uppercase text-dark fs-4 fw-normal pt-3 pb-3" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'policy' %}">Term & Policy</a>
+                      <li class="nav-item mt-2">
+                        <a class="text-decoration-none text-uppercase text-dark fs-6 fw-normal pt-2 pb-2" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'policy' %}">Term & Policy</a>
                         <div class='w-100 line mt-2 mb-2'></div>
                       </li>
-                      <li class="nav-item mt-3">
-                        <a class="text-decoration-none text-uppercase text-danger fs-6 fw-normal pt-3 pb-3" style='background:transparent; border: 1.5px solid transparent;' href="{% url 'logout' %}">
-                          <i class="bi bi-box-arrow-right me-2"></i> Logout
+                      <div class="d-flex flex-row w-100">
+                        <a href="https://www.instagram.com/usavisano.1/" class='bg-transparent border-0 me-2'>
+                            <img src="/static/images/instagram.png" alt="Instagram" class='rounded w-75 h-auto'/>
                         </a>
-                      </li>
+                        <a href="https://www.facebook.com/people/USA-Visa-Helplines-Private-Consultants/61570884250044/" class='bg-transparent border-0 ms-2 me-2'>
+                            <img src="/static/images/facebook.png" alt="Instagram" class='rounded w-75 h-auto'/>
+                        </a>
+                        <a href="https://www.youtube.com/@usavisano.1" class='bg-transparent border-0 ms-2 me-2'>
+                            <img src="/static/images/youtube.png" alt="Instagram" class='rounded w-75 h-auto'/>
+                        </a>
+                        <a href="https://x.com/usavisainc" class='bg-transparent border-0 ms-2'>
+                            <img src="/static/images/twitter.png" alt="Instagram" class='rounded w-75 h-auto'/>
+                        </a>
+                      </div>
+                      <div>
+                          {% if user.is_authenticated %}
+                              <!-- Show logout button if user is logged in -->
+                              <li class="nav-item mt-2">
+                                  <a class="text-decoration-none text-uppercase text-danger fs-6 fw-normal pt-2 pb-2" 
+                                     style='background:transparent; border: 1.5px solid transparent;' 
+                                     href="{% url 'logout' %}">
+                                      <i class="bi bi-box-arrow-right me-2"></i> Logout
+                                  </a>
+                              </li>
+                              <!-- Optional: Show link to account page if needed -->
+                              <a href="{% url 'account' %}" class='text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-black fw-bold pb-1 w-50 m-0 mt-2'>
+                                  My Account
+                                  <svg viewBox="0 0 24 24" fill="currentColor" class="mt-1">
+                                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" style='color:black'/>
+                                  </svg>
+                              </a>
+                          {% else %}
+                              <div class='w-100 d-flex flex-row m-0 mt-3'>
+                                <a href="{% url 'account' %}" class='text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-black fw-bold pb-1 w-25 me-3'>
+                                    Sign In
+                                    {% comment %} <svg viewBox="0 0 24 24" fill="currentColor" class="mt-1">
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" style='color:black'/>
+                                    </svg> {% endcomment %}
+                                </a>
+                                <a href="{% url 'account' %}" class='text-decoration-none align-items-center justify-content-evenly d-flex rounded-pill text-black fw-bold pb-1 w-25'>
+                                    Sign Up
+                                    {% comment %} <svg viewBox="0 0 24 24" fill="currentColor" class="mt-1">
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" style='color:black'/>
+                                    </svg> {% endcomment %}
+                                </a>
+                              </div>
+                          {% endif %}
+                      </div>
                     </ul>
                   </div>
                 </div>

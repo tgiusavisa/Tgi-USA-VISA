@@ -182,7 +182,7 @@ def send_payment_proof_email(payment, booking):
         subject,
         message,
         settings.DEFAULT_FROM_EMAIL,
-        ['ankitrathod091@gmail.com'],
+        ['ankitrathod091@gmail.com','tgiusavisa@gmail.com'],
     )
     
     if payment.payment_proof:
@@ -213,8 +213,10 @@ def send_payment_proof_email(payment, booking):
     email.send()
 
 
-@login_required
+# @login_required
 def success_page(request):
+    if not request.user.is_authenticated:
+        return redirect('account') 
     booking_data = request.session.get('booking_data', {})
     context = {
         'full_name': booking_data.get('full_name', ''),

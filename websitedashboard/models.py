@@ -176,48 +176,21 @@ class highlightshome(models.Model):
     def __str__(self):
         return self.heading
 
-# class BookingDetail(models.Model):
-#     full_name = models.CharField(max_length=255)
-#     passport_id = models.CharField(max_length=100)
-#     mobile_number = models.CharField(max_length=15)
-#     email = models.EmailField()
-#     date_of_birth = models.DateField()
-#     gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')])
-#     address = models.TextField()
-#     submitted_at = models.DateTimeField(auto_now_add=True)
-#     passport_image = models.ImageField(
-#         upload_to='passport_images/',
-#         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
-#         null=True, blank=True
-#     )
-
-#     def __str__(self):
-#         return self.full_name
-
-# class Payment(models.Model):
-#     PAYMENT_STATUS_CHOICES = [
-#         ('Under Process', 'Under Process'),
-#         ('Accepted', 'Accepted'),
-#         # ('Received', 'Didn\'t Receive Payment'),
-#     ]
+class HeroSlider(models.Model):
+    home = models.ForeignKey(Home, on_delete=models.CASCADE, related_name='hero_sliders', null=True, blank=True)
+    image = models.ImageField(upload_to='hero_slider/')
+    heading = models.CharField(max_length=200)
+    subheading = models.CharField(max_length=200, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
     
-#     booking = models.OneToOneField(
-#         BookingDetail, 
-#         on_delete=models.CASCADE,
-#         related_name='payment',
-#     )
-#     full_name = models.CharField(max_length=255)
-#     email = models.EmailField()
-#     payment_proof = models.ImageField(upload_to='payment_proofs/')
-#     submitted_at = models.DateTimeField(auto_now_add=True)
-#     payment_status = models.CharField(
-#         max_length=20,
-#         choices=PAYMENT_STATUS_CHOICES,
-#         default='Under Process'
-#     )
-
-#     def __str__(self):
-#         return f"{self.full_name} - {self.payment_status}"
+    class Meta:
+        verbose_name = "Hero Slider"
+        verbose_name_plural = "Hero Sliders"
+        ordering = ['order']
+    
+    def __str__(self):
+        return self.heading
     
 class policy(models.Model):
     heading = models.CharField(max_length=200)

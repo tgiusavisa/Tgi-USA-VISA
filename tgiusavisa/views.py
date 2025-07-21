@@ -11,7 +11,7 @@ def home(request):
     visitor_count = Visitor.objects.get(pk=1).count if Visitor.objects.exists() else 0
     
     visas = Visa.objects.all()
-    home = Home.objects.prefetch_related('about_us', 'our_mission', 'our_goals', 'Our_vision', 'faq', 'highlights').first()
+    home = Home.objects.prefetch_related('hero_sliders','about_us', 'our_mission', 'our_goals', 'Our_vision', 'faq', 'highlights').first()
     
     return render(request, 'index.html', {'visas': visas,'home': home,'visitor_count': visitor_count})
 

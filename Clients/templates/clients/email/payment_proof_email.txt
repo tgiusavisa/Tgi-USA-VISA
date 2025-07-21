@@ -1,4 +1,4 @@
-New payment proof submission received:
+New Payment Proof Submission Received:
 
 Full Name: {{ full_name }}
 Email: {{ email }}
@@ -7,6 +7,7 @@ Visa Type: {{ visa_type }}
 Submission Date: {{ submission_date }}
 
 Please verify this payment and take appropriate action.
+https://tgiusavisa.com/superadmin-dashboard/Clients/payment/
 
 Thank you,
-TGI USA Visa Helpline Team
+TGI USA Visa

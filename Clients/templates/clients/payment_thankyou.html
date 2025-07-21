@@ -1,24 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container text-center p-5">
+<div class="container text-center p-4">
     <h1 class="fw-bolder fs-1 main-heading">Thank You!</h1>
-    <p class="lead">Your payment proof has been submitted successfully.</p>
-    
-    <div class="card mt-5 mb-5 mx-auto" style="max-width: 600px;">
-        <div class="card-body">
-            <h2 class="card-title">Payment Details</h2>
-            <p><strong>Reference ID:</strong> {{ payment.id }}</p>
-            <p><strong>Submitted on:</strong> {{ payment.created_at }}</p>
-            <p><strong>Status:</strong> {{ payment.get_status_display }}</p>
-            
-            <h3 class="mt-4">Booking Information</h3>
-            <p><strong>Name:</strong> {{ booking.full_name }}</p>
-            <p><strong>Visa Type:</strong> {{ booking.visa_type }}</p>
-            <p><strong>Service:</strong> {{ booking.service_type }}</p>
-        </div>
+    <p class="lead w-100 text-center">Your payment proof has been submitted successfully.</p>
+    <div class='w-100 d-flex flex-column  text-align-center align-item-center justify-content-center'>
+        <div class="w-100 p-5">
+            <div class="row">
+                <div class="col">
+                    <h1 class="fw-bolder fs-4 text-start main-heading ">Payment Details</h1>
+                    <li class='w-100 fs-6 d-flex flex-row align-item-center justify-content-start m-1'><span style='font-weight:500;'>Reference ID:</span><span>{{ payment.id }}</span></li>
+                    <li class='w-100 fs-6 d-flex flex-row align-item-center justify-content-start m-1'><span style='font-weight:500;'>Submitted on:</span><span>{{ payment.created_at }}</span></li>
+                    <li class='w-100 fs-6 d-flex flex-row align-item-center justify-content-start m-1'><span style='font-weight:500;'>Status:</span><span>{{ payment.get_status_display }}</span></li>
+                    {% comment %} <li class='w-75 fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Service:</span><span>{{ service }}</span></li>
+                    <li class='w-75 fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Location:</span><span>{{ appointment_location }}</span></li>
+                    <li class='w-75 fs-6 d-flex flex-row align-item-center justify-content-between m-1'><span style='font-weight:500;'>Travellers:</span><span>{{ travellers }}</span></li> {% endcomment %}
+                </div>
+                <div class="col">
+                    <h1 class="fw-bolder fs-4 text-start main-heading ">Booking Information</h1>
+                    <li class='w-100 fs-6 d-flex flex-row align-item-center justify-content-start m-1'><span style='font-weight:500;'>Name:</span><span>{{ booking.full_name }}</span></li>
+                    <li class='w-100 fs-6 d-flex flex-row align-item-center justify-content-start m-1'><span style='font-weight:500;'>Visa Type:</span><span>{{ booking.visa_type }}</span></li>
+                    <li class='w-100 fs-6 d-flex flex-row align-item-center justify-content-start m-1'><span style='font-weight:500;'>Service:</span><span>{{ booking.service_type }}</span></li>
+                </div>
+            </div>
+        </div>    
+        <p class='w-100 text-start'>Our team will verify your payment and activate your service within 15-20 minutes.</p>
+        <a href="{% url 'index' %}" class="mt-3 w-25 text-decoration-none align-items-center justify-content-center d-flex rounded-pill fw-bold pt-1 pb-1  button2 text-dark border-2 fs-5">Return to Home</a>
     </div>
-    
-    <p>Our team will verify your payment and activate your service within 15-20 minutes.</p>
-    <a href="{% url 'index' %}" class="btn btn-primary mt-3">Return to Home</a>
 </div>
 {% endblock %}

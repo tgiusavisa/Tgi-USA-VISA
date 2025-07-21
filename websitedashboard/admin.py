@@ -1,6 +1,6 @@
 # websitedashboard/admin.py
 from django.contrib import admin
-from .models import Details, AboutUs, OurMission, OurVision, OurGoals, Visa, Home, AboutUshome, OurMissionhome, OurVisionhome, OurGoalshome, faqshome, highlightshome, policy, Visitor
+from .models import Details, AboutUs, OurMission, OurVision, OurGoals, Visa, Home, AboutUshome, OurMissionhome, OurVisionhome, OurGoalshome, faqshome, highlightshome, policy, Visitor, HeroSlider
 
 class AboutUsInline(admin.StackedInline):
     model = AboutUs
@@ -80,8 +80,13 @@ class highlightsInline(admin.StackedInline):
     model = highlightshome
     extra = 0
 
+class HeroSliderInline(admin.StackedInline):
+    model = HeroSlider
+    extra = 1
+
+
 class HomeAdmin(admin.ModelAdmin):
-    inlines = [AboutUshomeInline, OurMissionhomeInline, OurVisionhomeInline, OurGoalshomeInline, faqhomeInline, highlightsInline]
+    inlines = [HeroSliderInline, AboutUshomeInline, OurMissionhomeInline, OurVisionhomeInline, OurGoalshomeInline, faqhomeInline, highlightsInline]
 admin.site.register(Home, HomeAdmin)
 
 # class BookingDetailAdmin(admin.ModelAdmin):

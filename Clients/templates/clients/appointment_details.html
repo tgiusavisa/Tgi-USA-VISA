@@ -108,34 +108,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 
-                if (response.redirected) {
-                    window.location.href = response.url;
-                    return;
-                }
-                
                 const data = await response.json();
                 
                 if (data.redirect_url) {
                     window.location.href = data.redirect_url;
-                } else if (data.errors) {
-                    let errorMessage = 'Please fix the following errors:\n';
-                    for (const [field, errors] of Object.entries(data.errors)) {
-                        errorMessage += `\n${field}: ${errors.join(', ')}`;
-                    }
-                    alert(errorMessage);
+                } else if (data.error) {
+                    alert(data.error);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Confirm Appointment';
                 }
             } catch (error) {
                 console.error('Error:', error);
                 alert('An unexpected error occurred. Please try again.');
-            } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Confirm Appointment';
+                submitBtn.innerHTML = 'Confirm Appointment';
             }
         });
     }
 });
 
-@login_required
+{% comment %} @login_required {% endcomment %}
 def submit_payment_proof(request):
     if request.method == 'POST':
         booking_data = request.session.get('booking_data')

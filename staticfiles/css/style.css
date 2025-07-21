@@ -607,8 +607,38 @@ border-left: none !important;
     .success-main-button{
         width: 100%;
     }
-    .button-menu2{
+    .account-main-sec0{
+        height: 80vh !important;
+    }
+    .account-main-sec1{
         width: 100% !important;
+        height: 80vh !important;
+    }
+    .account-main-sec2{
+        width: 75% !important;
+    }
+    .account-main-sec3{
+        flex-direction: column !important;
+    }
+    .account-main-sec4{
+        width: 100% !important;
+        margin: 3px;
     }
 }
 /* Mobile CSS Eend */
+.account-main-sec0{
+    height: 90vh;
+}
+.account-main-sec1{
+    width: 75%;
+    height: 90vh;
+}
+.account-main-sec2{
+    width: 50%;
+}
+.account-main-sec3{
+     flex-direction: row;
+ }
+.account-main-sec4{
+     width: 50%;
+ }
