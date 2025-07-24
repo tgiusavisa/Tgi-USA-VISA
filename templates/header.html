@@ -36,7 +36,7 @@
                 </a>
                 <!-- Add this right after the <header> tag -->
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel" style="z-index: 1100;">
-                  <div class='offcanvas-header w-100  text-decoration-none align-items-center justify-content-center d-flex fw-bold pt-2 pb-2 button2 text-dark border-2'  style='border: 2px solid rgba(255, 221, 0, 1) !important;'>
+                  <div class='offcanvas-header w-100  text-decoration-none align-items-center justify-content-center d-flex fw-bold pt-2 pb-2 button2 text-dark border-2'  style='border: 2px solid #FFDB58 !important;'>
                     <h5 class="offcanvas-title fs-6" id="sidebarMenuLabel">TGI USA Visa</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                   </div>
@@ -66,15 +66,15 @@
                         <a href="https://www.instagram.com/usavisano.1/" class='bg-transparent border-0 me-2'>
                             <img src="/static/images/instagram.png" alt="Instagram" class='rounded w-75 h-auto'/>
                         </a>
-                        <a href="https://www.facebook.com/people/USA-Visa-Helplines-Private-Consultants/61570884250044/" class='bg-transparent border-0 ms-2 me-2'>
+                        {% comment %} <a href="https://www.facebook.com/people/USA-Visa-Helplines-Private-Consultants/61570884250044/" class='bg-transparent border-0 ms-2 me-2'>
                             <img src="/static/images/facebook.png" alt="Instagram" class='rounded w-75 h-auto'/>
-                        </a>
+                        </a> {% endcomment %}
                         <a href="https://www.youtube.com/@usavisano.1" class='bg-transparent border-0 ms-2 me-2'>
                             <img src="/static/images/youtube.png" alt="Instagram" class='rounded w-75 h-auto'/>
                         </a>
-                        <a href="https://x.com/usavisainc" class='bg-transparent border-0 ms-2'>
+                        {% comment %} <a href="https://x.com/usavisainc" class='bg-transparent border-0 ms-2'>
                             <img src="/static/images/twitter.png" alt="Instagram" class='rounded w-75 h-auto'/>
-                        </a>
+                        </a> {% endcomment %}
                       </div>
                       <div>
                           {% if user.is_authenticated %}

@@ -1,19 +1,46 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from websitedashboard.models import Visa, Home, Visitor
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import requests
+from django.core.mail import send_mail
+
 
 def home(request):
     Visitor.increment_count()
-    
     visitor_count = Visitor.objects.get(pk=1).count if Visitor.objects.exists() else 0
-    
     visas = Visa.objects.all()
-    home = Home.objects.prefetch_related('hero_sliders','about_us', 'our_mission', 'our_goals', 'Our_vision', 'faq', 'highlights').first()
-    
-    return render(request, 'index.html', {'visas': visas,'home': home,'visitor_count': visitor_count})
+    home_data = Home.objects.prefetch_related(
+        'hero_sliders','about_us', 'our_mission', 'our_goals', 'Our_vision', 'faq', 'highlights'
+    ).first()
+
+    message_sent = False
+
+    if request.method == "POST":
+        full_name = request.POST.get('full_name', '')
+        email = request.POST.get('email', '')
+        query = request.POST.get('query', '')
+
+        message = (
+            f"New Query Submitted via TGI USA Visa homepage:\n\n"
+            f"Full Name: {full_name}\n"
+            f"Email: {email}\n"
+            f"Query:\n{query}\n"
+        )
+
+        recipients = ["Tgiusavisa@gmail.com", "ankitrathod091@gmail.com"]
+
+        send_mail(
+            subject="Customer Query from TGI USA Visa Website",
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            fail_silently=False,
+        )
+        message_sent = True
+        return redirect(f"{request.path}?thanks=1") 
+    return render(request, 'index.html', {'visas': visas,'home': home_data,'visitor_count': visitor_count,'message_sent': message_sent})
 
 def visitor_count(request):
     count = Visitor.objects.get(pk=1).count if Visitor.objects.exists() else 0

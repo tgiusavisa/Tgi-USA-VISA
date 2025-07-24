@@ -16,7 +16,7 @@ header .main-header{
     width: 120px;
     height: 30px;
     background-color: rgba(255, 221, 0, 0.29);
-    border: 1.5px solid #FFDD00;
+    border: 1.5px solid #FFC107;
     transition: all 0.5s ease; 
 }
 .carousel-item {
@@ -32,7 +32,7 @@ header .main-header{
     width: auto;
     height: auto;
     background-color: rgba(255, 221, 0, 0.29);
-    border: 1.5px solid #FFDD00;
+    border: 1.5px solid #FFC107;
     margin-top: 5rem; 
 }
 .homepopup .h-sec{
@@ -44,7 +44,7 @@ header .main-header{
     font-weight: 700;
 }
 .header-inner-sec a:hover{
-    background-color: #FFDD00;
+    background-color: #FFC107;
     color:black !important
 }
 .header-inner-sec a svg {
@@ -80,15 +80,15 @@ header .main-header{
     background-color: rgba(0, 0, 0, 0.25);
 }
 .button2{
-    background-color: #FFDD00 !important;
-    border: 1.5px solid rgba(255, 221, 0, 1);
+    background-color: #FFC107 !important;
+    border: 1.5px solid #FFC107;
 }
 .button2 svg{
     color: black !important;
 }
 .button2:hover{
     background-color: rgba(255, 221, 0, 0.29) !important;
-    border: 1.5px solid #FFDD00 !important;
+    border: 1.5px solid #FFC107 !important;
     transition: all 0.3s ease !important; 
     color: black !important; 
 }
@@ -97,11 +97,11 @@ header .main-header{
 }
 .button3{
     background-color: rgba(255, 221, 0, 0.29) !important;
-    border: 1.5px solid #FFDD00 !important;
+    border: 1.5px solid #FFC107 !important;
     transition: all 0.3s ease !important; 
 }
 .button3:hover{
-    background-color: #FFDD00 !important;
+    background-color: #FFC107 !important;
     color:white !important;
 }
 /* Custom sidebar styling */
@@ -124,11 +124,11 @@ header .main-header{
 
 .nav-link:hover {
   background-color: #e9ecef;
-  color: #0d6efd;
+  color: #FFC107;
 }
 
 .nav-link.active {
-  background-color: #0d6efd;
+  background-color: #FFC107;
   color: white;
 }
 
@@ -140,7 +140,7 @@ header .main-header{
 /* Header Sec2 start */
 .headersec-2{
     height: 50vh;
-    background-color: #FFDD00;
+    background-color: #FFC107;
     /* margin-top: -8vh !important; */
 }
 /* Header Sec2 end */
@@ -168,9 +168,9 @@ header .main-header{
 .main-visa .sub-main-visa{
     width: 90%;
     height: auto;
-    background-color: #FFDD00;
+    background-color: #FFC107;
     border-radius: 20px;
-    border: 1.5px solid #FFDD00;
+    border: 1.5px solid #FFC107;
 }
 .visa-card{
     width: 180px !important;
@@ -184,28 +184,28 @@ header .main-header{
 .visa-card .visa-card-heading{
     background-color: white;
     color: rgba(230, 0, 0, 1);
-    border: 1.5px solid #FFDD00;
+    border: 1.5px solid #FFC107;
     border-radius: 12px;
     text-align: center;
     font-weight: bold;
 }
 .visa-card .visa-card-heading:hover{
     background-color: rgba(255, 221, 0, 0.29);
-    border: 1.5px solid #FFDD00;
+    border: 1.5px solid #FFC107;
     transition: all 0.3s ease; 
     color: white;
 }
 .old-company-sec{
-    background-color: #FFDD00;
+    background-color: #FFC107;
     width: 200px !important;
     height: 120px !important;
     border-radius: 20px;
-    border: #FFDD00 1.5px solid;
+    border: #FFC107 1.5px solid;
     transition: all 0.3s ease;
 }
 .old-company-sec:hover{
     background-color: rgba(255, 221, 0, 0.29) !important;
-    border: 1.5px solid #FFDD00 !important;
+    border: 1.5px solid #FFC107 !important;
     cursor: pointer;
 }
 .form-img img{
@@ -242,11 +242,11 @@ header .main-header{
   cursor: pointer;
   color: white;
   background-color: rgba(255, 221, 0, 0.29);
-  border: #FFDD00 1.5px solid;
+  border: #FFC107 1.5px solid;
 }
 
 .svg-icon:hover {
-  background-color: #FFDD00;
+  background-color: #FFC107;
 }
 /* .have-questions .sec{
     width: 87% !important;
@@ -326,13 +326,13 @@ header .main-header{
 /* Tab Button Styles */
 /* .tab-btn {
     background-color: rgba(255, 221, 0, 0.29) !important;
-    border: 1.5px solid #FFDD00 !important;
+    border: 1.5px solid #FFC107 !important;
     transition: all 0.3s ease !important;
     cursor: pointer;
 }
 
 .tab-btn.active {
-    background-color: #FFDD00 !important;
+    background-color: #FFC107 !important;
     color: white !important;
 }
 

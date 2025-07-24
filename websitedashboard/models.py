@@ -18,8 +18,8 @@ class Details(models.Model):
 
 class AboutUs(models.Model):
     details = models.ForeignKey(Details, on_delete=models.CASCADE, related_name='about_us', null=True, blank=True)
-    image = models.ImageField(upload_to='about_us/')
-    heading = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='about_us/,', null=True, blank=True)
+    heading = models.CharField(max_length=200, default='', null=True, blank=True)
     description = HTMLField()
 
     class Meta:
